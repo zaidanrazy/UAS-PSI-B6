@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\JenisBarangController;
 use App\Http\Controllers\PinjamController;
@@ -43,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
         ]);
     })->name('home');
 
+    Route::resource('group', GroupController::class);
     Route::resource('databarang', BarangController::class);
     Route::resource('user', UserController::class);
     Route::resource('jenisBarang', JenisBarangController::class);

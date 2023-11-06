@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class PageIdSeeder extends Seeder
+class GroupPageSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gp_ids', function (Blueprint $table) {
-            $table->id();
+        Schema::create('groups', function (Blueprint $table) {
+            $table->increments('group_id');
+            $table->string('group_name')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gp_ids');
+        Schema::dropIfExists('groups');
     }
 };
