@@ -50,7 +50,7 @@ class JenisBarangController extends Controller
 
             return redirect('databarang')->with('success', 'Data Berhasil Disimpan!');
         } else {
-            return redirect('databarang')->with('failed', $validate->getMessageBag())->withInput();
+            return redirect('databarang')->with('failed', 'Masukan Data Yang Benar!');
         }
     }
 

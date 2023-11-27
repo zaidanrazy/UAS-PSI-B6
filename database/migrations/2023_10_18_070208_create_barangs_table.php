@@ -17,8 +17,12 @@ return new class extends Migration
             $table->foreignId('id_pic');
             $table->string('barcode')->unique();
             $table->string('barang');
+
             $table->string('harga');
             $table->string('jumlah')->nullable();
+            $table->string('quantity');
+            $table->integer('sisa')->nullable();
+
             $table->string('tersedia')->nullable();
             $table->string('terpinjam')->nullable();
             $table->string('jenis_barang')->nullable();

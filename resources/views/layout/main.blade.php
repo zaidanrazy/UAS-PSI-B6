@@ -16,6 +16,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
+
     <!-- FA -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Latest compiled and minified CSS -->
@@ -42,6 +43,7 @@
     <link href="{{ asset('assets/plugins/switchery/switchery.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/3d-bold-navigation/css/style.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/slidepushmenus/css/component.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <!-- Theme Styles -->
     <link href="{{ asset('assets/css/meteor.min.css') }}" rel="stylesheet" type="text/css" />
@@ -62,8 +64,11 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 
     <!-- SELECT 2 -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
 
+    {{-- Image --}}
+    <link href="{{ asset('assets/plugins/plupload/js/jquery.plupload.queue/css/jquery.plupload.queue.css') }}"
+        rel="stylesheet" type="text/css" />
 </head>
 
 <body class="compact-menu">
@@ -148,13 +153,13 @@
                 <div class="topmenu-outer">
                     <div class="top-menu">
                         <ul class="nav navbar-nav navbar-left">
-                            <li>
+                            {{-- <li>
                                 <a href="javascript:void(0);" class="sidebar-toggle"><i
                                         class="icon-arrow-left"></i></a>
-                            </li>
-                            <li>
+                            </li> --}}
+                            {{-- <li>
                                 <a href="#cd-nav" class="cd-nav-trigger"><i class="icon-support"></i></a>
-                            </li>
+                            </li> --}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="icon-settings"></i>
@@ -241,12 +246,14 @@
                                     <li class="drop-all"><a href="#" class="text-center">All Messages</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            {{-- <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-                                        class="icon-bell"></i><span class="badge badge-danger pull-right">3</span></a>
+                                        class="icon-bell"></i><span
+                                        class="badge badge-warning pull-right">3</span></a>
                                 <ul class="dropdown-menu title-caret dropdown-lg" role="menu">
                                     <li>
                                         <p class="drop-title">You have 3 pending tasks!</p>
+
                                     </li>
                                     <li class="dropdown-menu-list slimscroll tasks">
                                         <ul class="list-unstyled">
@@ -281,7 +288,7 @@
                                     </li>
                                     <li class="drop-all"><a href="#" class="text-center">All Tasks</a></li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <span class="user-name">{{ auth()->user()->name }}<i
@@ -334,7 +341,7 @@
         {{-- <p class="no-s">Made with <i class="fa fa-heart"></i> by stacks</p> --}}
         </div><!-- Page Inner -->
     </main><!-- Page Content -->
-    <nav class="cd-nav-container" id="cd-nav">
+    {{-- <nav class="cd-nav-container" id="cd-nav">
         <header>
             <h3>DEMOS</h3>
         </header>
@@ -360,7 +367,7 @@
         <div class="col-md-6 demo-block demo-coming-soon">
             <p>Coming<br>Soon</p>
         </div>
-    </nav>
+    </nav> --}}
     <div class="cd-overlay"></div>
 
 
@@ -378,10 +385,23 @@
     <script src="{{ asset('assets/plugins/3d-bold-navigation/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/meteor.min.js') }}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
     <link rel="stylesheet" href="{{ asset('/bootstrap-3.3.7-dist/js/bootstrap.min.js') }}">
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+
+    <script src="{{ asset('assets/js/pages/form-select2.js') }}"></script>
+    <script src="{{ asset('assets/plugins/chartjs/Chart.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/charts-chartjs.js') }}"></script>
+
+    {{-- upload --}}
+
+    <script src="{{ asset('assets/plugins/plupload/js/plupload.full.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/plupload/js/jquery.plupload.queue/jquery.plupload.queue.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/form-plupload.js') }}"></script>
+
     <!-- Latest compiled and minified JavaScript -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
         integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous">

@@ -21,8 +21,9 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $barang = Barang::leftJoin('users', 'barangs.id_pic', '=', 'users.id')
+        $barang = Barang::leftJoin('users as pics', 'barangs.id_pic', '=', 'pics.id')
             ->leftJoin('jenis_barang', 'barangs.id_jb', '=', 'jenis_barang.id_jb')
+            // ->leftJoin('')
             ->latest('barangs.created_at')
             ->get();
 
@@ -121,11 +122,21 @@ class BarangController extends Controller
      */
     public function edit(Barang $barang)
     {
-        return view('layout.barang.edit', [
+        // return view('layout.barang.edit', [
+        //     'barang' => $barang->find(request()->segment(2)),
+        //     'jenis' => JenisBarang::all(),
+        //     'user' => User::all(),
+        // ]);
+
+        $data =  [
             'barang' => $barang->find(request()->segment(2)),
             'jenis' => JenisBarang::all(),
             'user' => User::all(),
-        ]);
+        ];
+
+        // dd($data);
+
+        return view('layout.barang.edit')->with($data);
     }
 
     /**

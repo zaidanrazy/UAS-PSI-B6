@@ -30,7 +30,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('layout.user.create');
+        $data =  [
+            'role' => User::select('is_admin')->distinct()->get(),
+        ];
+        // dd($data);
+        return view('layout.user.create')->with($data);
     }
 
     /**
@@ -43,7 +47,10 @@ class UserController extends Controller
             'name' => ['required', 'max:255'],
             'email' => ['required', 'email'],
             'nik' => ['required', 'min:3', 'max:255'],
-            'password' => ['required', 'min:5', 'max:255']
+            'password' => ['required', 'min:5', 'max:255'],
+            'role' => ['required']
+
+
         ]);
 
         // $validatedData['password'] = bcrypt($validatedData['password']);
@@ -52,7 +59,9 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->nik_pic = $request->nik;
+            $user->is_admin = $request->role;
             $user->password = Hash::make($request->input('password'));
+
             $user->save();
 
             return redirect('user')->with('success', 'Registration successfull! Please Login');
@@ -74,9 +83,18 @@ class UserController extends Controller
      */
     public function edit(user $user)
     {
-        return view('layout.user.edit', [
-            'user' => $user->find(request()->segment(2)),
-        ]);
+
+        $data = [
+            'role' => User::select('is_admin')->distinct()->get(),
+        ];
+
+        return view('layout.user.edit')
+            ->with('user', $user->find(request()->segment(2)))
+            ->with($data);
+
+        // return view('layout.user.edit', [
+        //     'user' => $user->find(request()->segment(2)),
+        // ]);
     }
 
     /**
@@ -91,6 +109,7 @@ class UserController extends Controller
                 'email' => 'required', 'email',
                 'nik' => 'required',
                 'password' => 'required',
+                'role' => 'required'
 
             ],
 
@@ -107,7 +126,7 @@ class UserController extends Controller
                 'email'   => $request->input('email'),
                 'nik_pic'   => $request->input('nik'),
                 'password'   => $request->input('password'),
-
+                'is_admin' => $request->input('role'),
 
             ];
             // dd($request->all());

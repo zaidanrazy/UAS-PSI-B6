@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Page;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 
 class PageSeeder extends Seeder
 {
@@ -12,6 +14,10 @@ class PageSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        //1
+        Page::create([
+            'page_name' => 'home',
+            'action' => 'read',
+        ]);
     }
 }

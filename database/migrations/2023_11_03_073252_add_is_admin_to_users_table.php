@@ -12,10 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_admin')->default(false);
+            $table->enum('is_admin', ['admin', 'pic', 'user'])->default('user');
         });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->boolean('is_admin')->default(false);
+        // });
     }
-
+    //
     /**
      * Reverse the migrations.
      */

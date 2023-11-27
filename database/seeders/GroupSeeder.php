@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Group;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class GroupSeeder extends Seeder
 {
@@ -12,6 +13,9 @@ class GroupSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Group::create([
+            'group_id' => 1,
+            'group_name' => 'Super Admin',
+        ]);
     }
 }

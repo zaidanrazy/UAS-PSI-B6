@@ -93,8 +93,8 @@
                         <div class="form-group">
                             <label for="harga" class="col-sm-1 control-label">Harga</label>
                             <div class="col-sm-7">
-                                <input type="number" class="form-control @error('harga') is-invalid @enderror"
-                                    id="harga" name="harga" required value="{{ old('harga', $barang->harga) }}">
+                                <input type="text" class="form-control @error('harga') is-invalid @enderror"
+                                    id="harga" name="harga" required value="{{ $barang->harga }}">
                                 @error('harga')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -103,6 +103,14 @@
                                 <p class="help-block"></p>
                             </div>
                         </div>
+
+                        {{-- <div class="form-group">
+                            <label for="harga" class="col-sm-1 control-label">Harga</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="harga" class="form-control" id="input-Default"
+                                    value="{{ $barang->harga }}">
+                            </div>
+                        </div> --}}
 
                         <div class="form-group">
                             <label for="pic" class="col-sm-1 control-label">PIC</label>

@@ -58,6 +58,48 @@
                                 @enderror
                             </div>
                         </div>
+
+                        {{-- <div class="form-group">
+                            <label for="role" class="col-sm-1 control-label">Role</label>
+                            <div class="col-sm-5">
+                                <select class="form-select form-select-lg" id="role" name="role" required
+                                    value="{{ old('role', $user->is_admin) }}">
+                                    <option value=""disabled>Pilih role</option>
+                                    @foreach ($role as $a)
+                                        <option value="{{ $a->is_admin }}">
+                                            {{ $a->is_admin }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('role')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div> --}}
+
+                        <div class="form-group">
+                            <label for="role" class="col-sm-1 control-label">Role</label>
+                            <div class="col-sm-5">
+                                <select class="form-select form-select-lg" id="role" name="role" required>
+                                    <option value="" disabled>Pilih role</option>
+                                    @foreach ($role as $rol)
+                                        // Menggunakan variabel $roles yang telah diinisialisasi sebelumnya
+                                        <option value="{{ $rol->is_admin }}"
+                                            @if (old('role', $user->is_admin) == $rol->is_admin) selected @endif>
+                                            {{ $rol->is_admin }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('role')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="password" class="col-sm-1 control-label">Password</label>
                             <div class="col-sm-5">

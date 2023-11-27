@@ -1478,6 +1478,7 @@ fieldset[disabled] .btn-danger:hover {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     margin-bottom: 25px;
+    /* margin-top: 50px; */
 }
 .panel .panel-heading + .panel-body {
     padding: 5px 20px 20px;

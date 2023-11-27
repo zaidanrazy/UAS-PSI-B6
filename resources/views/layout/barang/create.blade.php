@@ -21,10 +21,9 @@
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('databarang.store') }}">
                         @csrf
-
                         <div class="form-group">
                             <label for="barcode" class="col-sm-1 control-label">Barcode</label>
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
                                 <input type="number" class="form-control @error('barcode') is-invalid @enderror"
                                     id="barcode" name="barcode" required autofocus value="{{ old('barcode') }}">
                                 @error('barcode')
@@ -34,10 +33,9 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="barang" class="col-sm-1 control-label">Barang</label>
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
                                 <input type="text" class="form-control  @error('barang') is-invalid @enderror"
                                     id="barang" name="barang" required autofocus value="{{ old('barang') }}">
                                 @error('barang')
@@ -48,10 +46,9 @@
                                 <p class="help-block"></p>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="jenis_barang" class="col-sm-1 control-label">Jenis</label>
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
                                 <select class="form-select form-select-lg" id="jenis_barang" name="jenis_barang" required>
                                     <option value=""> Pilih Jenis Barang </option>
                                     @foreach ($jenis as $j)
@@ -67,7 +64,6 @@
                                 <p class="help-block"></p>
                             </div>
                         </div>
-
                         {{-- <div class="form-group">
                             <label for="jenis_barang" class="col-sm-1 control-label">Jenis</label>
                             <div class="col-sm-3">
@@ -89,11 +85,9 @@
                                 <p class="help-block"></p>
                             </div>
                         </div> --}}
-
-
                         <div class="form-group">
                             <label for="jumlah" class="col-sm-1 control-label">Jumlah</label>
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
                                 <input type="number" class="form-control @error('jumlah') is-invalid @enderror"
                                     id="jumlah" name="jumlah" required autofocus value="{{ old('jumlah') }}">
                                 @error('jumlah')
@@ -104,11 +98,9 @@
                                 <p class="help-block"></p>
                             </div>
                         </div>
-
-
                         <div class="form-group">
                             <label for="harga" class="col-sm-1 control-label">Harga</label>
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
                                 <input type="number" class="form-control @error('harga') is-invalid @enderror"
                                     id="harga" name="harga" required autofocus value="{{ old('harga') }}">
                                 @error('harga')
@@ -139,10 +131,9 @@
                                 <p class="help-block"></p>
                             </div>
                         </div> --}}
-
                         <div class="form-group">
                             <label for="pic" class="col-sm-1 control-label">PIC</label>
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
                                 <select class="form-select form-select-lg" id="pic" name="pic" required>
                                     <option value=""> Pilih PIC Barang </option>
                                     @foreach ($user as $u)
@@ -160,12 +151,6 @@
                             </div>
                         </div>
 
-
-
-
-
-
-
                         {{-- <div class="form-group d-flex justify-content-center ">
 
                             <a href="{{ route('databarang.index') }}" class="btn btn-info">Kembali</a> &nbsp; &nbsp;
@@ -175,14 +160,13 @@
                         <div class="form-group row">
                             <div class="col-sm-1"></div>
                             <div class="col-sm-4">
-                                <a href="{{ route('databarang.index') }}" class="btn btn-info">Kembali</a>
+                                <a href="{{ route('home') }}" class="btn btn-info">Kembali</a>
 
                                 <button type="submit" class="btn btn-primary">Simpan</button><br>
                             </div>
                         </div>
-
+                    </form>
                 </div>
-                </form>
 
 
             </div>
