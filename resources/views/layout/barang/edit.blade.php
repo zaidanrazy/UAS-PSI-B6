@@ -1,4 +1,14 @@
 @extends ('layout.main')
+{{-- @push('css')
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+@endpush
+
+@push('js')
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+
+    <script src="{{ asset('assets/js/pages/form-select2.js') }}"></script>
+@endpush --}}
+
 @section('tes')
     <div class="page-inner">
         <div class="page-title">
@@ -26,8 +36,8 @@
                         <div class="form-group">
                             <label for="barcode" class="col-sm-1 control-label">Barcode</label>
                             <div class="col-sm-7">
-                                <input type="number" class="form-control @error('barcode') is-invalid @enderror"
-                                    id="barcode" name="barcode" required autofocus
+                                <input type="text" class="form-control @error('barcode') is-invalid @enderror"
+                                    id="barcode" maxlength="8" name="barcode" required autofocus
                                     value="{{ old('barcode', $barang->barcode) }}">
                                 @error('barcode')
                                     <div class="invalid-feedback">

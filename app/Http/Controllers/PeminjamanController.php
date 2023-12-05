@@ -23,7 +23,7 @@ class PeminjamanController extends Controller
         $user = User::all();
         // $yuser = Auth::user()->name;
 
-        if (auth()->user()->id == 1) {
+        if (auth()->user()->is_admin === 'admin') {
             $peminjaman = DB::table('peminjamans')
                 ->select('peminjamans.*', 'barangs.*', 'users.name as nama_peminjam', 'barangs.id_pic as id_pic', 'user2.name as nama_pic')
                 ->leftJoin('users', 'peminjamans.id_user', '=', 'users.id')
@@ -42,6 +42,20 @@ class PeminjamanController extends Controller
                 ->orderBy('peminjamans.created_at', 'desc')
                 ->get();
         }
+
+        // } else{
+
+        // $peminjaman = Peminjaman::select('peminjamans.*', 'barangs.*', 'users.name as nama_peminjam', 'barangs.id_pic as id_pic', 'user2.name as nama_pic')
+        // ->leftJoin('users', 'peminjamans.id_user', '=', 'users.id')
+        // ->leftJoin('barangs', 'peminjamans.id_barang', '=', 'barangs.id_barang')
+        // ->leftJoin('users as user2', 'user2.id', '=', 'barangs.id_pic')
+        // ->where('peminjamans.id_user', auth()->id())
+        // ->orderBy('peminjamans.created_at', 'desc')
+        // ->get();
+
+        //}
+
+
         // ->where('users.name', $yuser)
         return view('layout.peminjam.index', [
 
@@ -53,6 +67,7 @@ class PeminjamanController extends Controller
 
         ]);
     }
+
 
     // public function acc(Request $request,  Peminjaman $peminjaman)
     // {

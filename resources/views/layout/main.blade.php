@@ -5,8 +5,19 @@
 
 <head>
 
+    <style>
+        .select2-selection {
+            display: none;
+        }
+
+        hash .select2-selection--single {
+            display: none;
+
+        }
+    </style>
+
     <!-- Title -->
-    <title>Barang</title>
+    <title>barang</title>
 
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta charset="UTF-8">
@@ -14,8 +25,24 @@
     <meta name="keywords" content="admin,dashboard" />
     <meta name="author" content="stacks" />
 
+
+    {{-- BARU  --}}
+
+    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+
+
+
+    {{-- ASLI --}}
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+
+
+
+
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
+
+    <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/datepicker3.css') }}" rel="stylesheet"
+        type="text/css" />
 
     <!-- FA -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -43,7 +70,7 @@
     <link href="{{ asset('assets/plugins/switchery/switchery.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/3d-bold-navigation/css/style.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/slidepushmenus/css/component.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <!-- Theme Styles -->
     <link href="{{ asset('assets/css/meteor.min.css') }}" rel="stylesheet" type="text/css" />
@@ -291,11 +318,13 @@
                             </li> --}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    {{-- <div class="d-flex align-items-center justify-content-between"> --}}
                                     <span class="user-name">{{ auth()->user()->name }}<i
                                             class="fa fa-angle-down"></i></span>
                                     <img class="img-circle avatar" src="{{ asset('assets/images/avatar1.png') }}"
                                         width="40" height="40" alt="">
-
+                                    {{-- <i class='bx bx-user-circle bx-lg mr-5 fs-3 text-white'></i> --}}
+                                    {{-- </div> --}}
 
                                 </a>
                                 <form action="/logout" method="post">
@@ -336,10 +365,19 @@
             <div class="row">
             </div><!-- Row -->
         </div><!-- Main Wrapper -->
+        {{-- <div class="page-footer">
+        </div> --}}
+        <style>
+            .page-footer {
+                text-align: center;
+            }
+        </style>
         <div class="page-footer">
+            <p class="no-s">Made with <i class="fa fa-heart"></i>Jawir 2023</p>
         </div>
+
         {{-- <p class="no-s">Made with <i class="fa fa-heart"></i> by stacks</p> --}}
-        </div><!-- Page Inner -->
+        <!-- Page Inner -->
     </main><!-- Page Content -->
     {{-- <nav class="cd-nav-container" id="cd-nav">
         <header>
@@ -390,17 +428,29 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 
-    <script src="{{ asset('assets/js/pages/form-select2.js') }}"></script>
     <script src="{{ asset('assets/plugins/chartjs/Chart.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/charts-chartjs.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 
     {{-- upload --}}
 
     <script src="{{ asset('assets/plugins/plupload/js/plupload.full.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/plupload/js/jquery.plupload.queue/jquery.plupload.queue.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/form-plupload.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/form-select2.js') }}"></script>
+
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+
+
+    {{-- Boxicons --}}
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    {{-- BARU --}}
+    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
+
+
 
     <!-- Latest compiled and minified JavaScript -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
@@ -414,6 +464,7 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     @if (session('success'))
         <script type="text/javascript">
             let timerInterval;
@@ -425,7 +476,7 @@
                 timerProgressBar: true,
                 confirmButtonText: 'Oke',
                 didOpen: () => {
-                    timerInterval = setInterval(() => {}, 100)
+                    timerInterval = setInterval(() => {}, 250)
                 },
                 willClose: () => {
 
@@ -437,6 +488,9 @@
             });
         </script>
     @endif
+
+
+
     @if (session('failed'))
         <script type="text/javascript">
             let timerInterval;

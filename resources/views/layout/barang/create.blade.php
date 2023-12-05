@@ -1,4 +1,13 @@
 @extends ('layout.main')
+{{-- @push('css')
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+@endpush
+
+@push('js')
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+
+    <script src="{{ asset('assets/js/pages/form-select2.js') }}"></script>
+@endpush --}}
 @section('tes')
     <div class="page-inner">
         <div class="page-title">
@@ -24,8 +33,9 @@
                         <div class="form-group">
                             <label for="barcode" class="col-sm-1 control-label">Barcode</label>
                             <div class="col-sm-6">
-                                <input type="number" class="form-control @error('barcode') is-invalid @enderror"
-                                    id="barcode" name="barcode" required autofocus value="{{ old('barcode') }}">
+                                <input type="text" class="form-control @error('barcode') is-invalid @enderror"
+                                    id="barcode" maxlength="8" name="barcode" required autofocus
+                                    value="{{ old('barcode') }}">
                                 @error('barcode')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -49,7 +59,7 @@
                         <div class="form-group">
                             <label for="jenis_barang" class="col-sm-1 control-label">Jenis</label>
                             <div class="col-sm-6">
-                                <select class="form-select form-select-lg" id="jenis_barang" name="jenis_barang" required>
+                                <select class="form-select  form-select-lg" id="jenis_barang" name="jenis_barang" required>
                                     <option value=""> Pilih Jenis Barang </option>
                                     @foreach ($jenis as $j)
                                         <option value="{{ $j->id_jb }}">
@@ -162,11 +172,21 @@
                             <div class="col-sm-4">
                                 <a href="{{ route('home') }}" class="btn btn-info">Kembali</a>
 
-                                <button type="submit" class="btn btn-primary">Simpan</button><br>
+                                <button type="submit" class="btn btn-primary">Save <i class="bx bxs-save ms-20">
+                                </button></i><br>
                             </div>
                         </div>
                     </form>
                 </div>
+
+
+
+                {{-- <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                    data-target="#myModal{{ $p->barcode }}">Kembalikan
+                    <i class=" icon-action-undo"></i></button> --}}
+
+
+
 
 
             </div>

@@ -1,4 +1,15 @@
 @extends('layout.main')
+
+{{-- @push('css')
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+@endpush
+
+@push('js')
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+
+    <script src="{{ asset('assets/js/pages/form-select2.js') }}"></script>
+@endpush --}}
+
 @section('tes')
     <div class="page-inner">
         <div class="page-title">
@@ -46,8 +57,8 @@
                         <div class="form-group">
                             <label for="nik" class="col-sm-1 control-label">Nik</label>
                             <div class="col-sm-5">
-                                <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik"
-                                    name="nik" required autofocus value="{{ old('nik') }}">
+                                <input type="text" maxlength="8" class="form-control @error('nik') is-invalid @enderror"
+                                    id="nik" name="nik" required autofocus value="{{ old('nik') }}">
                                 @error('nik')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -75,29 +86,79 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="password" class="col-sm-1 control-label">Password</label>
+
+                        {{-- <div class="form-group">
+                            <label class="col-sm-1 control-label">Password</label>
                             <div class="col-sm-5">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    id="password" name="password" required autofocus value="{{ old('password') }}">
-                                @error('password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <div class="input-group m-b-sm">
+                                    <input type="text" class="form-control" aria-describedby="basic-addon2">
+                                    <span class="input-group-addon" id="basic-addon2"><ion-icon name="eye-off-outline"
+                                            class="seep" id="seep"></ion-icon></span></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-1"></div>
-                            <div class="col-sm-2">
-                                <a href="{{ route('user.index') }}" class="btn btn-info">Kembali</a>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div> --}}
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Password</label>
+                            <div class="col-sm-5">
+                                <div class="input-group m-b-sm">
+                                    {{-- <ion-icon name="eye-off-outline" class="seep" id="seep"></ion-icon> --}}
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        id="password" name="password" required autofocus value="{{ old('password') }}"
+                                        aria-describedby="basic-addon2">
+                                    <span class="input-group-addon" id="basic-addon2"> <ion-icon name="eye-off-outline"
+                                            class="seep" id="seep"></ion-icon></span>
+                                    @error('password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
 
-                    </form>
+
+                        <div class="form-group row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">
+                                <a href="{{ route('user.index') }}" class="btn btn-info">Kembali</a>
+                                <button type="submit" class="btn btn-primary">Simpan <i
+                                        class="bx bxs-save ms-20"></button></i>
+                            </div>
+                        </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script>
+        let seep = document.getElementById("seep");
+        let password = document.getElementById("password");
+
+        seep.onclick = function() {
+            if (password.type === "password") {
+                password.type = "text";
+                seep.setAttribute("name", "eye-outline");
+            } else {
+                password.type = "password";
+                seep.setAttribute("name", "eye-off-outline");
+            }
+        };
+    </script>
 @endsection
+{{-- <div class="form-group row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4">
+        <a href="{{ route('home') }}" class="btn btn-info">Kembali</a>
+
+        <button type="submit" class="btn btn-primary">Save <i class="bx bxs-save ms-20">
+        </button></i><br>
+    </div>
+</div> --}}

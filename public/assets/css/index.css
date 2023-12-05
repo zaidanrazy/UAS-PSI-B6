@@ -23,6 +23,10 @@
     transform: translate(-50%, -50%);
 }
 
+/* .selection2-selection {
+    display: none;
+} */
+
 * {
     margin: 0;
     padding: 0;
@@ -136,6 +140,31 @@ button {
 .register p a:hover {
     text-decoration: underline;
 }
+
+/* #woi {
+    position: relative;
+    width: 400px;
+    height: 450px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-body {
+    position: relative;
+    width: 400px;
+    height: 450px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
 
 /* .modal-content {
     backdrop-filter: blur(10px);

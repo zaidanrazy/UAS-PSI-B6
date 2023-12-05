@@ -36,19 +36,19 @@
                                     <th style="text-align: center;">Peminjam</th>
                                     <th style="text-align: center;">Pic</th>
 
-                                    <th style="text-align: center;">Jumlah
+                                    <th style="text-align: center;" width="1%">Jumlah
                                         pinjam
                                     </th>
                                     {{-- <th style="text-align: center;">Sisa</th> --}}
-                                    <th style="text-align: center;">Tgl Pinjam</th>
-                                    <th style="text-align: center;">Tgl Kembali</th>
+                                    <th style="text-align: center;" width="10%">Tgl Pinjam</th>
+                                    <th style="text-align: center;" width="10%">Tgl Kembali</th>
                                     <th style="text-align: center;">Gambar</th>
-                                    <th style="text-align: center;"width="13%">Status</th>
+                                    <th style="text-align: center;"width="1%">Status</th>
                                 </tr>
                             </thead>
                             {{-- @endif --}}
                             <tbody>
-
+                                {{-- @endif --}}
                                 @foreach ($peminjaman as $p)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
@@ -82,32 +82,45 @@
                                     @endif --}}
 
                                 <td style="text-align: center;">
-                                    @if ($p->status == 'menunggu' && auth()->user()->id == 1)
-                                        <form action="{{ route('peminjaman.acc', $p->id) }}" method="post">
-                                            @csrf
-                                            @method('put')
-                                            <input type="hidden" name="peminjaman_id" value="{{ $p->id }}">
-                                            <input type="hidden" name="jumlah" value="{{ $p->jumlah }}">
-                                            <button type="submit" class="btn btn-success btn-sm">Terima</button>
+                                    <div class="d-flex justify-content-between justify-content-lg-center">
+                                        @if ($p->status == 'menunggu' && auth()->user()->id == 1)
+                                            <form action="{{ route('peminjaman.acc', $p->id) }}" method="post">
+                                                @csrf
+                                                @method('put')
+                                                <input type="hidden" name="peminjaman_id" value="{{ $p->id }}">
+                                                <input type="hidden" name="jumlah" value="{{ $p->jumlah }}">
+                                                <button type="submit" class="btn btn-success btn-sm me-2 ">Terima</button>
 
-                                        </form>
-                                    @elseif ($p->status == 'diterima')
-                                        Dipinjam
-                                    @elseif($p->status == 'menunggu')
-                                        Menunggu
-                                    @elseif ($p->status == 'ditolak')
-                                        Ditolak
-                                    @elseif ($p->status == 'selesai')
-                                        selesai
-                                    @endif
-                                    @if ($p->status == 'menunggu' && auth()->user()->id == 1)
-                                        <form action="{{ route('peminjaman.declined', $p->id) }}" method="post">
-                                            @csrf
-                                            @method('put')
-                                            <input type="hidden" name="peminjaman_id" value="{{ $p->id }}">
-                                            <button type="submit" class="btn btn-danger btn-sm ">Tolak</button>
-                                        </form>
-                                    @endif
+                                            </form>
+                                            {{-- <div class="text-align: center;"> --}}
+                                        @elseif ($p->status == 'diterima')
+                                            <div class="mt-4  text-center"> Dipinjam </div>
+                                        @elseif ($p->status == 'telat')
+                                            <div class="mt-4  text-center"> Telat Mengembalikan </div>
+                                        @elseif($p->status == 'menunggu')
+                                            <div class="mt-4 text-center"> Menunggu </div>
+                                        @elseif ($p->status == 'ditolak')
+                                            <div class="mt-4 text-center"> Ditolak </div>
+                                        @elseif ($p->status == 'selesai')
+                                            {{-- <button type="button" class="btn btn-success">Selesai</button> --}}
+                                            {{-- <i class='bx bx-badge-check bx-lg mt-3'></i> --}}
+
+                                            <box-icon name='badge-check' size='lg' color='green'
+                                                class="mt-4"></box-icon>
+                                        @endif
+                                        {{-- </div> --}}
+
+                                        @if ($p->status == 'menunggu' && auth()->user()->id == 1)
+                                            <form action="{{ route('peminjaman.declined', $p->id) }}" method="post">
+                                                @csrf
+                                                @method('put')
+                                                <input type="hidden" name="peminjaman_id" value="{{ $p->id }}">
+                                                <button type="submit"
+                                                    class="btn btn-danger btn-sm d-inline btn-block ">Tolak &nbsp;</button>
+                                            </form>
+                                        @endif
+
+                                    </div>
                                 </td>
                                 </tr>
                                 @endforeach

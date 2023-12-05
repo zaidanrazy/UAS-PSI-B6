@@ -1,5 +1,15 @@
 @extends ('layout.main')
+
 @section('tes')
+    {{-- @push('css')
+        <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    @endpush
+
+    @push('js')
+        <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+
+        <script src="{{ asset('assets/js/pages/form-select2.js') }}"></script>
+    @endpush --}}
     {{-- <style>
         .modal-body {
             backdrop-filter: blur(15px);
@@ -45,12 +55,12 @@
                         {{-- <h4 class="panel-title">Data Barang</h4> --}}
 
                         <div class="d-flex justify-content-between   ">
-                            <a href="{{ route('databarang.create') }}" class="btn btn-info">
+                            <a href="{{ route('databarang.create') }}" class="btn btn-primary">
                                 <i class="far fa-plus"></i> Barang
                             </a>
-                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+                            {{-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
                                 <i class="far fa-plus"></i> Jenis Barang
-                            </button>
+                            </button> --}}
                         </div>
                     </div>
                 @endif
@@ -63,10 +73,10 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-body ">
-                                        <form class="form-horizontal" method="POST"
+                                        {{-- <form class="form-horizontal" method="POST"
                                             action="{{ route('jenisBarang.store') }}">
                                             @csrf
-                                            {{-- <label for="jenisbarangg">Add Jenis Barang</label> --}}
+
                                             <div class="row">
                                                 <div class="mx-auto col-md-8 col-6 col-lg-8">
 
@@ -80,20 +90,13 @@
                                                         </div>
                                                     @enderror
                                                 </div>
-                                                {{-- <div class="col-4">
 
-                                                    <button type="submit" class="btn btn-primary">Simpan</button>
-
-                                                    <button type="button" class="btn btn-default"
-                                                        data-dismiss="modal">Close</button>
-                                                </div> --}}
                                             </div>
 
-                                            {{-- </form> --}}
+
                                             <br>
                                             <div class="row">
-                                                {{-- <div class="col-md-2 col-md-offset-2"> --}}
-                                                {{-- <div class="panel panel-default"> --}}
+
                                                 <div class="panel-body">
                                                     <table class="table table-bordered">
                                                         <thead>
@@ -112,7 +115,7 @@
                                                                     <th scope="row">{{ $loop->iteration }}</th>
                                                                     <td>{{ $j->jenis_barang }}</td>
                                                                     <td style="text-align: center;">
-                                                                        {{-- <a class="btn btn-primary btn-sm" href=""><i class="fas fa-edit"></i></a> --}}
+
                                                                         <a class="btn btn-danger btn-sm" href="#"
                                                                             onclick="deleteData('{{ route('jenisBarang.destroy', $j->id_jb) }}'); return false;">
                                                                             <i class="fas fa-trash"></i></a>
@@ -122,77 +125,77 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                {{-- </div> --}}
-                                                {{-- </div><!-- Row --> --}}
+
                                             </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        {{-- <button type="submit" class="btn btn-success">Save changes</button> --}}
+
                                         <button type="submit" class="btn btn-primary">Save</button>
                                     </div>
-                                    </form>
+                                    </form> --}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="panel-body mb-auto">
-                    <div class="table-responsive">
-                        <table id="example" class="table table-bordered table-sm mb-2 ">
-                            <thead>
-                                <tr>
-                                    <th style="text-align: center; width: 10px;">No</th>
-                                    <th style="text-align: center;">Barcode</th>
-                                    <th style="text-align: center;" width="10%">Jenis Barang</th>
-                                    <th style="text-align: center; width: 300px;">Barang</th>
-                                    @if (auth()->user()->is_admin === 'admin')
-                                        {{-- <th style="text-align: center;" width="10%">Harga</th> --}}
-                                        <th style="text-align: center; width: 10%;">
-                                            <span style="display: flex; flex-direction: column; align-items: center;">
-                                                <i class="icon-credit-card"></i>
-                                                <span style="margin-top: 5px;">Harga</span>
-                                            </span>
-                                        </th>
-                                    @endif
-                                    <th style="text-align: center;">Stok</th>
-                                    <th style="text-align: center;">Sisa</th>
-                                    <th style="text-align: center;" width="20%">Pic</th>
-                                    @if (auth()->user()->is_admin === 'admin')
-                                        <th style="text-align: center;" width="14%">Action</th>
-                                    @endif
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($barang as $b)
+                    <div class="panel-body mb-auto">
+                        <div class="table-responsive">
+                            <table id="example" class="table table-bordered table-sm mb-2 ">
+                                <thead>
                                     <tr>
-                                        <th style="text-align:center;"scope="row">{{ $loop->iteration }}</th>
-                                        <td style="text-align:center;">{{ $b->barcode }}</td>
-                                        <td style="text-align:center;">{{ $b->jenis_barang }}</td>
-                                        <td style="text-align:center;">{{ $b->barang }}</td>
+                                        <th style="text-align: center; width: 10px;">No</th>
+                                        <th style="text-align: center;">Barcode</th>
+                                        <th style="text-align: center;" width="10%">Jenis Barang</th>
+                                        <th style="text-align: center; width: 300px;">Barang</th>
                                         @if (auth()->user()->is_admin === 'admin')
-                                            <td style="text-align:center;">{{ $b->harga }}</td>
+                                            {{-- <th style="text-align: center;" width="10%">Harga</th> --}}
+                                            <th style="text-align: center; width: 10%;">
+                                                <span style="display: flex; flex-direction: column; align-items: center;">
+                                                    <i class="{{--  icon-credit-card --}}"></i>
+                                                    <span style="margin-top: 5px;">Harga</span>
+                                                </span>
+                                            </th>
                                         @endif
-                                        <td style="text-align:center;">{{ $b->jumlah == null ? 'empty' : $b->jumlah }}</td>
+                                        <th style="text-align: center;">Stok</th>
+                                        <th style="text-align: center;">Sisa</th>
+                                        <th style="text-align: center;" width="20%">Pic</th>
+                                        @if (auth()->user()->is_admin === 'admin')
+                                            <th style="text-align: center;" width="14%">Action</th>
+                                        @endif
 
-                                        @php
-                                            $total_stock = (int) $b->jumlah;
-                                            $qty_peminjaman = (int) \App\Models\Peminjaman::where('id_barang', $b->id_barang)
-                                                ->where('status', 'diterima')
-                                                ->sum('qty_barang');
-                                            $sisa = $total_stock - $qty_peminjaman;
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($barang as $b)
+                                        <tr>
+                                            <th style="text-align:center;"scope="row">{{ $loop->iteration }}</th>
+                                            <td style="text-align:center;">{{ $b->barcode }}</td>
+                                            <td style="text-align:center;">{{ $b->jenis_barang }}</td>
+                                            <td style="text-align:center;">{{ $b->barang }}</td>
+                                            @if (auth()->user()->is_admin === 'admin')
+                                                <td style="text-align:center;">{{ $b->harga }}</td>
+                                            @endif
+                                            <td style="text-align:center;">{{ $b->jumlah == null ? 'empty' : $b->jumlah }}
+                                            </td>
 
-                                            //save
-                                            $barang = \App\Models\Barang::findOrFail($b->id_barang);
-                                            $barang->sisa = $sisa;
-                                            $barang->save();
-                                        @endphp
+                                            @php
+                                                $total_stock = (int) $b->jumlah;
+                                                $qty_peminjaman = (int) \App\Models\Peminjaman::where('id_barang', $b->id_barang)
+                                                    ->where('status', 'diterima')
+                                                    ->sum('qty_barang');
+                                                $sisa = $total_stock - $qty_peminjaman;
 
-                                        <td style="text-align:center;">{{ $sisa }}</td>
+                                                //save
+                                                $barang = \App\Models\Barang::findOrFail($b->id_barang);
+                                                $barang->sisa = $sisa;
+                                                $barang->save();
+                                            @endphp
 
-                                        {{--
+                                            <td style="text-align:center;">{{ $sisa }}</td>
+
+                                            {{--
 
 
                                 @foreach ($pinjam as $p)
@@ -204,31 +207,25 @@
                                     </option>
                                 @endforeach --}}
 
+                                            <td style="text-align:center;">{{ $b->name }}</td>
+                                            @if (auth()->user()->is_admin === 'admin')
+                                                <td style="text-align:center;">
+                                                    <a class="btn btn-success btn-sm "
+                                                        href="{{ route('databarang.edit', $b->id_barang) }}">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
 
-
-
-
-
-
-                                        <td style="text-align:center;">{{ $b->name }}</td>
-                                        @if (auth()->user()->is_admin === 'admin')
-                                            <td style="text-align:center;">
-                                                <a class="btn btn-primary btn-sm "
-                                                    href="{{ route('databarang.edit', $b->id_barang) }}">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-
-                                                <a class="btn btn-danger btn-sm " href="#"
-                                                    onclick="deleteData('{{ route('databarang.destroy', $b->id_barang) }}'); return false;">
-                                                    <i class="fas fa-trash"></i></a>
-                                                {{-- <form action="{{ route('databarang.destroy', $b->id_barang) }}" method="post">
+                                                    <a class="btn btn-warning btn-sm " href="#"
+                                                        onclick="deleteData('{{ route('databarang.destroy', $b->id_barang) }}'); return false;">
+                                                        <i class='bx bx-trash-alt bx-sm fs-3 text-white'></i></a>
+                                                    {{-- <form action="{{ route('databarang.destroy', $b->id_barang) }}" method="post">
                                                 @method('delete')
                                                 @csrf
                                                 <a class="btn btn-danger btn-sm " href="#"
                                                     onclick="return confirm ('are you sure deleted?')">
                                                     <i class="fas fa-trash"></i></a>
                                             </form> --}}
-                                                {{-- <form onsubmit="return confirm('Apakah Anda Yakin ?');"
+                                                    {{-- <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                                 action="{{ route('databarang.destroy', $b->id_barang) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -236,20 +233,20 @@
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                             </form> --}}
-                                                {{-- <a class="btn btn-info   btn-sm " href="{{ route('stok.index') }}">
+                                                    {{-- <a class="btn btn-info   btn-sm " href="{{ route('stok.index') }}">
                                                     <i class="far fa-plus"></i>
                                                 </a> --}}
-                                            </td>
-                                        @endif
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>x
-    </div>
+        </div>
     </div>
 
     {{-- {{ $barang->links() }} --}}

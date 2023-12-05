@@ -86,10 +86,10 @@ class UserController extends Controller
 
         $data = [
             'role' => User::select('is_admin')->distinct()->get(),
+            'user' => $user->find(request()->segment(2))
         ];
 
         return view('layout.user.edit')
-            ->with('user', $user->find(request()->segment(2)))
             ->with($data);
 
         // return view('layout.user.edit', [
@@ -108,7 +108,7 @@ class UserController extends Controller
                 'name' => 'required',
                 'email' => 'required', 'email',
                 'nik' => 'required',
-                'password' => 'required',
+                // 'password' => 'required',
                 'role' => 'required'
 
             ],
@@ -120,23 +120,30 @@ class UserController extends Controller
             // ]
         );
         if (!$validate->fails()) {
+            $user = User::find($id);
 
             $DataUser = [
                 'name'     => $request->input('name'),
                 'email'   => $request->input('email'),
                 'nik_pic'   => $request->input('nik'),
-                'password'   => $request->input('password'),
+                // 'password'   => $request->input('password', $user->password),
                 'is_admin' => $request->input('role'),
 
             ];
+            // Update password only if it's provided
+            if ($request->filled('password')) {
+                $DataUser['password'] = $request->input('password');
+            }
+
+            // $user->update($userData);
+            User::find($id)->update($DataUser);
             // dd($request->all());
             // $dataBarang = Barang::find(request()->segment(2));
             // $sites = Site::find($id);
-            User::find($id)->update($DataUser);
 
             return redirect('user')->with('success', 'Data Berhasil Diupdate!');
         } else {
-            return redirect('user/create')->with('failed', $validate->getMessageBag());
+            return back()->with('failed', $validate->getMessageBag());
         }
     }
 

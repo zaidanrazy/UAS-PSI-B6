@@ -2963,6 +2963,8 @@ tr.group:hover {
 .page-sidebar .page-sidebar-inner {
     height: 100% !important;
     padding-top: 27px;
+
+    top: 0;
 }
 .small-sidebar .page-sidebar {
     width: 65px;

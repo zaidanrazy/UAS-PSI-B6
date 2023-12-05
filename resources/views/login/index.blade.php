@@ -4,17 +4,21 @@
 
 <head>
     <link rel="stylesheet" href="{{ asset('assets/css/index.css') }}">
-    <title>HASH TECHIE OFFICIAL</title>
+    <title>Login</title>
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 
 <body>
+
+
+
     <section>
-        <div class="animation-container">
+        {{-- <div class="animation-container">
             <dotlottie-player src="https://lottie.host/27eb355c-0889-41fd-8e85-6f1cd272220d/L2pUnjqfgs.json"
                 background="transparent" speed="1" style="width: 300px; height: 300px;" loop
                 autoplay></dotlottie-player>
-        </div>
+        </div> --}}
+
         <div class="form-box ">
             <div class="form-value">
                 <form action="{{ route('login.store') }}" method="post">
@@ -46,6 +50,7 @@
             </div>
         </div>
     </section>
+
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 

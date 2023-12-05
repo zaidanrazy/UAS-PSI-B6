@@ -3,7 +3,7 @@
         <ul class="menu accordion-menu">
             <li class ="{{ Request::is('home') ? 'active open' : '' }}"><a href="{{ route('home') }}"
                     class="waves-effect waves-button"><span class="menu-icon icon-home"></span>
-                    <p>Home</p>
+                    <p>Dashboard</p>
                 </a>
             </li>
             <li class ="{{ Request::is('databarang*') ? 'active open' : '' }}"><a href="{{ route('databarang.index') }}"
@@ -26,15 +26,38 @@
             @if (auth()->user()->is_admin === 'admin' || auth()->user()->is_admin === 'pic')
                 <li class ="{{ Request::is('peminjam*') ? 'active open' : '' }}"><a href="{{ route('peminjam.index') }}"
                         class="waves-effect waves-button"><span class="icon-briefcase"></span>
-
-                        &nbsp;<p>Peminjaman</p>
+                        @if (auth()->user()->is_admin === 'admin' || auth()->user()->is_admin === 'pic')
+                            &nbsp;<p>Peminjaman</p>
+                        @elseif (auth()->user()->is_admin === 'user')
+                            &nbsp;<p>History</p>
+                        @endif
                         @if ($pendingRequestCount > 0)
                             <span class="badge badge-danger pull-right">{{ $pendingRequestCount }}</span>
+                        @endif
                     </a>
+                    {{-- @endif --}}
+                    </a>
+                </li>
             @endif
-            </a>
-            </li>
-            @endif
+
+
+
+
+
+
+            {{--
+            @if (auth()->user()->is_admin === 'admin' || auth()->user()->is_admin === 'pic')
+                &nbsp;<p>Peminjaman</p>
+            @elseif (auth()->user()->is_admin === 'user')
+                &nbsp;<p>History</p>
+            @endif --}}
+
+
+
+
+
+
+            {{-- @endif --}}
 
             {{-- @if (isset($pendingRequestCount) && (auth()->user()->is_admin == 'admin' || auth()->user()->is_admin == 'pic'))
                 <li class="{{ Request::is('peminjam*') ? 'active open' : '' }}">
@@ -68,19 +91,42 @@
             @if (auth()->user()->is_admin === 'admin')
                 <li class="{{ Request::is('jenisBarang*') ? 'active open' : '' }}"><a
                         href="{{ route('jenisBarang.index') }}" class="waves-effect waves-button"><span
-                            class="icon-fire"></span> &nbsp;
+                            class="icon-drawer"></span> &nbsp;
                         <p>Jenis Barang</p>
                     </a>
                 </li>
             @endif
-            @if (auth()->user()->is_admin === 'admin' || auth()->user()->is_admin === 'pic')
+            @if (auth()->user()->is_admin === 'admin' || auth()->user()->is_admin === 'pic' || auth()->user()->is_admin === 'user')
                 <li class="{{ Request::is('pengembalian*') ? 'active open' : '' }}"><a
-                        href="{{ route('pengembalian.index') }}" class="waves-effect waves-button"><span
-                            class="icon-fire"></span> &nbsp;
-                        <p>Pengembalian</p>
+                        href="{{ route('pengembalian.index') }}" class="waves-effect waves-button">
+
+                        @if (auth()->user()->is_admin === 'user')
+                            <span class="fas fa-history"></span> &nbsp;
+                            <p>History</p>
+                        @else
+                            <span class="icon-pie-chart"></span> &nbsp;
+                            <p>Pengembalian </p>
+                        @endif
                     </a>
                 </li>
             @endif
+
+
+            {{-- @if (auth()->user()->is_admin === 'admin' || auth()->user()->is_admin === 'pic')
+            &nbsp;<p>Peminjaman</p>
+        @elseif (auth()->user()->is_admin === 'user')
+            &nbsp;<p>History</p>
+        @endif --}}
+
+
+
+
+
+
+
+
+
+
             {{-- @if (auth()->user()->is_admin === 'admin')
                 <li class="{{ Request::is('stok*') ? 'active open' : '' }}"><a href="{{ route('stok.index') }}"
                         class="waves-effect waves-button"><span class="icon-briefcase"></span> &nbsp;

@@ -38,19 +38,21 @@ class JenisBarangController extends Controller
         $validate = validator::make(
             $request->all(),
             [
-                'jenisbarangg' => 'required',
+                // 'jenisbarangg' => 'required',
+                'jenis' => 'required',
             ],
         );
 
         if (!$validate->fails()) {
 
             JenisBarang::create([
-                'jenis_barang' => $request->input('jenisbarangg')
+                // 'jenis_barang' => $request->input('jenisbarangg'),
+                'jenis_barang' => $request->input('jenis'),
             ]);
 
-            return redirect('databarang')->with('success', 'Data Berhasil Disimpan!');
+            return redirect('jenisBarang')->with('success', 'Data Berhasil Disimpan!');
         } else {
-            return redirect('databarang')->with('failed', 'Masukan Data Yang Benar!');
+            return redirect('jenisBarang')->with('failed', 'Masukan Data Yang Benar!');
         }
     }
 

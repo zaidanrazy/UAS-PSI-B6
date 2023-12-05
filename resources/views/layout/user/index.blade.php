@@ -42,14 +42,15 @@
                                         <td style="text-align: center;">{{ $u->email }}</td>
                                         <td style="text-align: center;">{{ $u->nik_pic }}</td>
                                         <td style="text-align: center;">
-                                            <a class="btn btn-primary btn-sm " href="{{ route('user.edit', $u->id) }}">
+                                            <a class="btn btn-success btn-sm " href="{{ route('user.edit', $u->id) }}">
                                                 <i class="fas fa-edit"></i>
                                             </a>
 
 
-                                            <a class="btn btn-danger btn-sm " href="#"
+                                            <a class="btn btn-warning btn-sm " href="#"
                                                 onclick="deleteData('{{ route('user.destroy', $u->id) }}'); return false;">
-                                                <i class="fas fa-trash"></i></a>
+                                                <i class='bx bx-trash-alt bx-sm fs-3 text-white'></i>
+                                                {{-- <iclass="fasfa-trash"></i> --}}</a>
 
                                         </td>
                                     </tr>

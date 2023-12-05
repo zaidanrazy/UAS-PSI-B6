@@ -44,35 +44,32 @@
                             </thead>
                             <tbody>
                                 @foreach ($pengembalian as $p)
-                                    @if ($p->status == 'selesai')
-                                        <tr>
-                                            <td style="text-align: center;">{{ $loop->iteration }}</td>
-                                            <td style="text-align: center;">{{ $p->barcode }}</td>
-                                            <td style="text-align: center;">{{ $p->barang }}</td>
-                                            <td style="text-align: center;">{{ $p->nama_peminjam }}</td>
-                                            <td style="text-align: center;">{{ $p->nama_pic }}</td>
-                                            <td style="text-align: center;">{{ $p->qty_barang }}</td>
-                                            <td style="text-align: center">
-                                                {{ \Carbon\Carbon::parse($p->tgl_pinjam)->isoFormat('D MMMM YYYY HH:ss') }}
-                                            </td>
-                                            <td style="text-align: center">
-                                                {{ \Carbon\Carbon::parse($p->tgl_kembali_real)->isoFormat('D MMMM YYYY HH:ss') }}
-                                            </td>
-                                            <td style="text-align: center;">
-                                                @if ($p->image_new != null || $p->image_new != '')
-                                                    <img src="{{ asset('storage/' . $p->image_new) }}"
-                                                        class="rounded img-fluid img-rounded w-25 h-25"
-                                                        style="width: 120px">
-                                                @endif
+                                    <tr>
+                                        <td style="text-align: center;">{{ $loop->iteration }}</td>
+                                        <td style="text-align: center;">{{ $p->barcode }}</td>
+                                        <td style="text-align: center;">{{ $p->barang }}</td>
+                                        <td style="text-align: center;">{{ $p->nama_peminjam }}</td>
+                                        <td style="text-align: center;">{{ $p->nama_pic }}</td>
+                                        <td style="text-align: center;">{{ $p->qty_barang }}</td>
+                                        <td style="text-align: center">
+                                            {{ \Carbon\Carbon::parse($p->tgl_pinjam)->isoFormat('D MMMM YYYY HH:ss') }}
+                                        </td>
+                                        <td style="text-align: center">
+                                            {{ \Carbon\Carbon::parse($p->tgl_kembali_real)->isoFormat('D MMMM YYYY HH:ss') }}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            @if ($p->image_new != null || $p->image_new != '')
+                                                <img src="{{ asset('storage/' . $p->image_new) }}"
+                                                    class="rounded img-fluid img-rounded w-25 h-25" style="width: 120px">
+                                            @endif
 
 
-                                            </td>
-                                            <td style="text-align: center;">{{ $p->mark }}</td>
+                                        </td>
+                                        <td style="text-align: center;">{{ $p->mark }}</td>
 
 
 
-                                        </tr>
-                                    @endif
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

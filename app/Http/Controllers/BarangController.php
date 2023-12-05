@@ -57,7 +57,7 @@ class BarangController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                'barcode' => 'required',
+                'barcode' => 'required|size:8',
                 'jenis_barang' => 'required',
                 'barang' => 'required',
                 'harga' => 'required',
@@ -66,7 +66,7 @@ class BarangController extends Controller
 
             [
                 // 'barcode' => 'barcode harus 8 karakter!',
-                'pic' => 'pic harus 2 karakter!',
+                'barcode' => 'barcode harus 8 karakter!',
 
 
             ]
@@ -187,10 +187,10 @@ class BarangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(String $id, $idd)
+    public function destroy(String $id)
     {
         Barang::destroy($id);
-        Barang::destroy($idd);
+        // Barang::destroy($idd);
 
         return redirect('databarang')->with('success', 'Data Berhasil Dihapus!');
     }

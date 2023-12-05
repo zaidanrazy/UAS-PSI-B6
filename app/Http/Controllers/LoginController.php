@@ -24,7 +24,7 @@ class LoginController extends Controller
 
             return redirect()->intended('home');
         }
-        return redirect('/login')->with('Login Failed!', 'Data anda salah');
+        return redirect('/login')->with('failed', 'Data anda salah');
     }
 
     public function logout()

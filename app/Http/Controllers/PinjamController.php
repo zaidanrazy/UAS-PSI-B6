@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use DateTime;
 
 
 class PinjamController extends Controller
@@ -45,7 +46,7 @@ class PinjamController extends Controller
 
         if ($pinjam->status === 'diterima') {
             $pinjam->status = 'selesai';
-            $pinjam->tgl_kembali_real = now();
+            $pinjam->tgl_kembali_real = $request->datee;
             $pinjam->mark = $request->message;
             $pinjam->image_new = $request->image_new;
 
@@ -55,18 +56,30 @@ class PinjamController extends Controller
             }
 
             // Peminjaman::create([
-
-
             //     'image_new'     => $request->image_new ? $image_new->hashName() : '',
             // ]);
-
-
-
-
             // $pinjam->save();
 
             // $barang = Barang::findOrFail($barang->id);
             // $pinjam = Peminjaman::findOrFail($pinjam->id_barang);
+
+            // Ambil tanggal estimasi pengembalian dan tanggal pengembalian aktual dari database
+
+            $tgl_kembali = $pinjam->tgl_kembali;
+            $tgl_kembali_real = $pinjam->tgl_kembali_real;
+
+            // Ubah kedua nilai tersebut menjadi objek DateTime
+
+            $tgl_kembali = new DateTime($tgl_kembali);
+            $tgl_kembali_real = new DateTime($tgl_kembali_real);
+
+            // Periksa apakah tanggal pengembalian aktual melebihi tanggal estimasi pengembalian
+            if ($tgl_kembali > $tgl_kembali_real) {
+                // Jika iya, maka set statusnya menjadi "Telat"
+                $pinjam->status = "telat";
+            } else {
+            }
+
             $barang->sisa += $pinjam->qty_barang;
             $barang->save();
             $pinjam->save();

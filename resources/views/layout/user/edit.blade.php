@@ -1,4 +1,15 @@
 @extends('layout.main')
+
+{{-- @push('css')
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+@endpush
+
+@push('js')
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+
+    <script src="{{ asset('assets/js/pages/form-select2.js') }}"></script>
+@endpush --}}
+
 @section('tes')
     <div class="page-inner">
         <div class="page-title">
@@ -100,18 +111,59 @@
                             </div>
                         </div>
 
+
                         <div class="form-group">
                             <label for="password" class="col-sm-1 control-label">Password</label>
                             <div class="col-sm-5">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    id="password" name="password" required autofocus value="{{ old('password') }}">
-                                @error('password')
+                                <div class="input-group m-b-sm">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        aria-describedby="basic-addon2">
+                                    <span class="input-group-addon" id="basic-addon2"> <ion-icon name="eye-off-outline"
+                                            class="seep" id="seep"></ion-icon></span>
                                     <div class="invalid-feedback">
-                                        {{ $message }}
                                     </div>
-                                @enderror
+                                </div>
                             </div>
                         </div>
+                        {{-- <ion-icon name="eye-off-outline" class="seep" id="seep"></ion-icon> --}}
+
+
+                        {{-- <div class="form-group">
+                                <label class="col-sm-1 control-label">Password</label>
+                                <div class="col-sm-5">
+                                    <div class="input-group m-b-sm">
+
+                                        <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                            id="password" name="password" required autofocus value="{{ old('password') }}"
+                                            aria-describedby="basic-addon2">
+                                        <span class="input-group-addon" id="basic-addon2"> <ion-icon name="eye-off-outline"
+                                                class="seep" id="seep"></ion-icon></span>
+                                        @error('password')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div> --}}
+
+
+
+
+                        {{-- <div class="inputbox">
+                            <ion-icon name="eye-off-outline" class="seep" id="seep"></ion-icon>
+                            <input type="password" required id="password"name="password" required>
+                            <label for="">Password</label>
+                        </div> --}}
+
+
+
+
+
+
+
+
+
                         <div class="form-group row">
                             <div class="col-sm-1"></div>
                             <div class="col-sm-2">
@@ -125,4 +177,22 @@
             </div>
         </div>
     </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script>
+        let seep = document.getElementById("seep");
+        let password = document.getElementById("password");
+
+        seep.onclick = function() {
+            if (password.type === "password") {
+                password.type = "text";
+                seep.setAttribute("name", "eye-outline");
+            } else {
+                password.type = "password";
+                seep.setAttribute("name", "eye-off-outline");
+            }
+        };
+    </script>
 @endsection
