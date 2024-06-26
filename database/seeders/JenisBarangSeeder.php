@@ -13,6 +13,6 @@ class JenisBarangSeeder extends Seeder
      */
     public function run(): void
     {
-        JenisBarang::factory(2)->create();
+        JenisBarang::factory(5)->create();
     }
 }

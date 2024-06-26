@@ -15,13 +15,13 @@ class UserSeeder extends Seeder
     {
         // User::factory(30)->create();
 
-        // User::create([
-        //     'name' => 'admin',
-        //     'email' => 'admin@id',
-        //     'password' => bcrypt('admin'),
-        //     'nik_pic' => '12345678',
-        //     'group_id' => 1
-        // ]);
+        User::create([
+            'name' => 'admin',
+            'email' => 'admin@id',
+            'password' => bcrypt('admin'),
+            'nik_pic' => '12345678',
+            'group_id' => 1
+        ]);
 
         User::factory(99)->create();
     }

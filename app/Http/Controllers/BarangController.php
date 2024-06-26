@@ -33,14 +33,22 @@ class BarangController extends Controller
             'jenis' => jenisBarang::all()
         ]);
 
+
         // return view('layout.barang.index', compact('barang'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Barang $barang)
     {
+        //autorization
+        if (auth()->user()->is_admin === 'user') {
+
+            $this->authorize('create', $barang);
+        }
+
+
         return view('layout.barang.create', [
             'name' => $this->name,
             'user' => User::all(),
@@ -60,8 +68,8 @@ class BarangController extends Controller
                 'barcode' => 'required|size:8',
                 'jenis_barang' => 'required',
                 'barang' => 'required',
-                'harga' => 'required',
-                'pic'   => 'required',
+                // 'harga' => 'required',
+                // 'pic'   => 'required',
             ],
 
             [
@@ -89,13 +97,13 @@ class BarangController extends Controller
                 'barcode'     => $request->input('barcode'),
                 'barang'   => $request->input('barang'),
                 'jumlah'   => $request->input('jumlah'),
-                'harga'   => $request->input('harga'),
-                'id_pic'   => $request->input('pic'),
+                // 'harga'   => $request->input('harga'),
+                // 'id_pic'   => $request->input('pic'),
                 'tersedia' => $request->input('jumlah'),
                 'terpinjam' => 0,
                 'id_jb' => $request->input('jenis_barang'),
             ]);
-
+            // dd($request);
             // return response()->json(['data' => $data], 200);
             return redirect('databarang')->with('success', 'Data Berhasil Disimpan!');
         } else {
@@ -142,8 +150,14 @@ class BarangController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, String $id)
+    public function update(Barang $barang, Request $request, String $id)
     {
+        //autorization
+
+        if (auth()->user()->is_admin === 'user') {
+
+            $this->authorize('create', $barang);
+        }
 
         $validate = Validator::make(
             $request->all(),
@@ -151,8 +165,8 @@ class BarangController extends Controller
                 'barcode' => 'required|min:8',
                 'jenis_barang' => 'required',
                 'barang' => 'required',
-                'harga' => 'required',
-                'pic'   => 'required',
+                // 'harga' => 'required',
+                // 'pic'   => 'required',
             ],
 
             // [
@@ -166,10 +180,10 @@ class BarangController extends Controller
             $dataBarang = [
                 'barcode'     => $request->input('barcode'),
                 'barang'   => $request->input('barang'),
-                'jenis_barang'   => $request->input('jenis_barang'),
+                'id_jb'   => $request->input('jenis_barang'),
                 'jumlah'   => $request->input('jumlah'),
-                'harga'   => $request->input('harga'),
-                'id_pic'   => $request->input('pic'),
+                // 'harga'   => $request->input('harga'),
+                // 'id_pic'   => $request->input('pic'),
                 'tersedia' => $request->input('jumlah'),
                 'terpinjam' => 0
             ];
@@ -180,7 +194,7 @@ class BarangController extends Controller
 
             return redirect('databarang')->with('success', 'Data Berhasil Diupdate!');
         } else {
-            return redirect('databarang/create')->with('failed', $validate->getMessageBag());
+            return redirect('databarang/edit')->with('failed', $validate->getMessageBag());
         }
     }
 

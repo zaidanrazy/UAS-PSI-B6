@@ -18,8 +18,13 @@ class PinjamController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Peminjaman $pinjam)
     {
+        //autorization
+        if (auth()->user()->is_admin === 'user') {
+
+            $this->authorize('index', $pinjam);
+        }
     }
 
     //     @php
@@ -45,42 +50,41 @@ class PinjamController extends Controller
 
 
         if ($pinjam->status === 'diterima') {
-            $pinjam->status = 'selesai';
-            $pinjam->tgl_kembali_real = $request->datee;
+
+            $tgl_kembali = new DateTime($pinjam->tgl_kembali);
+            $tgl_kembali_real = new DateTime($request->datee);
+
+            if ($tgl_kembali_real > $tgl_kembali) {
+                $pinjam->status = 'telat';
+            } else {
+                $pinjam->status = 'selesai';
+            }
+
+            $pinjam->tgl_kembali_real =  \Carbon\Carbon::now(); //$request->datee;
             $pinjam->mark = $request->message;
-            $pinjam->image_new = $request->image_new;
+            // $request->qty_barangg;
+            $pinjam->qty_barang = $request->qty_barangg;
+
+            if ($request->hasFile('image_new')) {
+                $image_new = $request->file('image_new')->store('pinjam');
+                $pinjam->image_new = $image_new;
+            }
+
+            // $pinjam->save();
 
             if ($request->hasFile('image_new')) {
                 $image_new   = $request->file('image_new')->store('pinjam');
                 $pinjam->image_new = $image_new;
             }
 
-            // Peminjaman::create([
-            //     'image_new'     => $request->image_new ? $image_new->hashName() : '',
-            // ]);
-            // $pinjam->save();
+            $barang->sisa > 0 ? $barang->sisa = $request->qty_barangg : $barang->sisa;
+            // $barang->sisa = $request->qty_barangg;
+            // $pinjam->qty_barang = $request->qty_barangg;
+            // $pinjam->qty_barang -= $request->qty_barangg;
+            // $barang->sisa += $request->qty_barangg;
+            // $barang->sisa += $pinjam->qty_barang;
 
-            // $barang = Barang::findOrFail($barang->id);
-            // $pinjam = Peminjaman::findOrFail($pinjam->id_barang);
 
-            // Ambil tanggal estimasi pengembalian dan tanggal pengembalian aktual dari database
-
-            $tgl_kembali = $pinjam->tgl_kembali;
-            $tgl_kembali_real = $pinjam->tgl_kembali_real;
-
-            // Ubah kedua nilai tersebut menjadi objek DateTime
-
-            $tgl_kembali = new DateTime($tgl_kembali);
-            $tgl_kembali_real = new DateTime($tgl_kembali_real);
-
-            // Periksa apakah tanggal pengembalian aktual melebihi tanggal estimasi pengembalian
-            if ($tgl_kembali > $tgl_kembali_real) {
-                // Jika iya, maka set statusnya menjadi "Telat"
-                $pinjam->status = "telat";
-            } else {
-            }
-
-            $barang->sisa += $pinjam->qty_barang;
             $barang->save();
             $pinjam->save();
 
@@ -96,7 +100,11 @@ class PinjamController extends Controller
     public function create()
     {
         $yuser = Auth::user()->name;
+        $userid = Auth::user()->id;
+        // dd($userid);
+
         $pinjam = Barang::all();
+
         $user = User::all();
         $peminjaman = Peminjaman::where('id_user', auth()->id())->get();
 
@@ -107,6 +115,13 @@ class PinjamController extends Controller
             ->leftJoin('users as user2', 'user2.id', '=', 'barangs.id_pic')
             ->where('peminjamans.id_user', auth()->id())
             ->get();
+        // dd($peminjaman);
+        // foreach ($peminjaman as $png) {
+        //     $pinjam = $peminjaman != null ? Barang::where('id_barang', $png->id_barang)->get() : Barang::all();
+        // }
+
+
+
         // ->latest('peminjamans.created_at')
         return view('layout.pinjam.index', [
 
@@ -114,23 +129,34 @@ class PinjamController extends Controller
             'pinjam' => $pinjam,
             'user' => $user,
             'yuser' => $yuser,
+            'userid' => $userid
         ]);
     }
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $image = '';
         $sisa_barang = '';
         $validate = Validator::make(
             $request->all(),
             [
-                'user' => 'required',
+                // 'tgl_kembali' => 'required|date|before_or_equal:' . now(),
+                // 'user' => 'required',
                 'barang' => 'required',
                 'jumlah' => 'required',
                 'kembali' => 'required',
                 'image'     => 'image',
             ]
         );
+
+        // if ($validate->fails()) {
+        //     // Handle validation errors
+        //     return response()->json([
+        //         'errors' => $validate->errors(),
+        //         'status' => 400,
+        //     ], 400);
+
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $image = $request->file('image');
@@ -143,9 +169,11 @@ class PinjamController extends Controller
             $barang = Barang::find($request->input('barang'));
 
             if ($request->input('jumlah') > $barang->jumlah) {
-                $validate->errors()->add('failed', 'Stok tidak tersedia');
-                return redirect()->back()->withErrors($validate)->withInput();
+                // $validate->errors()->add('failed', 'Stok tidak tersedia');
+                // return redirect()->back()->withErrors($validate)->withInput();
+                return redirect()->back()->with('failed', 'Stok Tidak Mencukupi');
             }
+
 
             // ini juga $sisa_barang = $barang->jumlah - $request->input('jumlah');
             //baru
@@ -180,7 +208,7 @@ class PinjamController extends Controller
             // return response()->json(['data' => $dat  a], 200);
             return back()->with('success', 'Data Berhasil Diajukan!');
         } else {
-            return redirect('pinjam.create')->with('failed', $validate->getMessageBag())->withInput();
+            return back()->with('failed', $validate->getMessageBag())->withInput();
         }
     }
 
@@ -205,7 +233,6 @@ class PinjamController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
     }
 
     /**

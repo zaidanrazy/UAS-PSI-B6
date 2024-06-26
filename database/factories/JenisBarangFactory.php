@@ -17,7 +17,14 @@ class JenisBarangFactory extends Factory
     public function definition(): array
     {
         return [
-            'jenis_barang' => fake()->randomElement(["Elektronik", "Pokok", "Sekunder"]),
+            'jenis_barang' => function () {
+                $jenisBarangList = [
+                    "Elektronik & Komputer", "Alat Kontruksi & Pemeliharaan",
+                    "Perlengkapan Kantor", "Perlengkapan Keamanan & Keselamatan", "Perlengkapan Umum"
+                ];
+
+                return fake()->unique()->randomElement($jenisBarangList);
+            },
         ];
     }
 }

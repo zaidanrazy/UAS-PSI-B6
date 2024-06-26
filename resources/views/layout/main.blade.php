@@ -4,7 +4,12 @@
 <!-- Mirrored from polygons.space/meteor/Source/admin1/layout-blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 17 Oct 2023 01:12:45 GMT -->
 
 <head>
-
+    <style>
+        body {
+            position: relative;
+        }
+    </style>
+    {{--
     <style>
         .select2-selection {
             display: none;
@@ -14,7 +19,11 @@
             display: none;
 
         }
-    </style>
+
+        /* .selection {
+            display: none;
+        } */
+    </style> --}}
 
     <!-- Title -->
     <title>barang</title>
@@ -24,18 +33,26 @@
     <meta name="description" content="Admin Dashboard Template" />
     <meta name="keywords" content="admin,dashboard" />
     <meta name="author" content="stacks" />
+    <link href="{{ asset('assets/images/favicon.png') }}" rel="icon">
 
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+    {{-- <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> --}}
+    {{-- <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script> --}}
     {{-- BARU  --}}
 
     {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
 
-
+    {{-- <link rel="stylesheet" href="{{ asset('vendor/sweetalert2/sweetalert2.min.css') }}"> --}}
 
     {{-- ASLI --}}
     <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
 
+    {{-- DATA TABLE TEMPLATE --}}
 
+    <link href="{{ asset('assets/plugins/datatables/css/jquery.datatables.min.css') }}" rel="stylesheet"
+        type="text/css" />
+    <link href="{{ asset('assets/plugins/datatables/css/jquery.datatables_themeroller.css') }}" rel="stylesheet"
+        type="text/css" />
 
 
     <!-- Styles -->
@@ -71,7 +88,7 @@
     <link href="{{ asset('assets/plugins/3d-bold-navigation/css/style.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/slidepushmenus/css/component.css') }}" rel="stylesheet" type="text/css" />
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"> --}}
     <!-- Theme Styles -->
     <link href="{{ asset('assets/css/meteor.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/layers/dark-layer.css') }}" class="theme-color" rel="stylesheet"
@@ -96,6 +113,14 @@
     {{-- Image --}}
     <link href="{{ asset('assets/plugins/plupload/js/jquery.plupload.queue/css/jquery.plupload.queue.css') }}"
         rel="stylesheet" type="text/css" />
+    <script
+        src="
+                                                                                                                                                                                                                                                                                                                                                                                                                    https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js
+                                                                                                                                                                                                                                                                                                                                                                                                                    ">
+    </script>
+    <link href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css
+" rel="stylesheet">
 </head>
 
 <body class="compact-menu">
@@ -171,8 +196,12 @@
                         <i class="icon-arrow-right"></i>
                     </a>
                 </div>
-                <div class="logo-box">
-                    <a href="index.html" class="logo-text"><span>Peminjaman Barang</span></a>
+                <div class="logo-box ms-5">
+                    <a href="index.html" class="logo-text"
+                        style= "font-family:candara; font-weight: bold; height:15px; font-size:18px; bold"><span>PT BSS
+                            {{-- font-family: "poppins", sans-serif; --}}
+                            <img src="{{ asset('assets/images/favicon.png') }}" class="" height="26">
+                        </span></a>
                 </div><!-- Logo Box -->
                 <div class="search-button">
                     <a href="javascript:void(0);" class="show-search"><i class="icon-magnifier"></i></a>
@@ -260,7 +289,7 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="javascript:void(0);" class="show-search"><i class="icon-magnifier"></i></a>
+
                             </li>
                             <li class="dropdown">
 
@@ -408,7 +437,9 @@
     </nav> --}}
     <div class="cd-overlay"></div>
 
-
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css"> --}}
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
     <!-- Javascripts -->
     <script src="{{ asset('assets/plugins/jquery/jquery-3.1.0.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
@@ -425,8 +456,8 @@
 
     {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
     <link rel="stylesheet" href="{{ asset('/bootstrap-3.3.7-dist/js/bootstrap.min.js') }}">
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    {{-- <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script> --}}
 
 
     <script src="{{ asset('assets/plugins/chartjs/Chart.bundle.min.js') }}"></script>
@@ -444,6 +475,11 @@
     <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 
 
+    {{-- DATA TABLE TMPLTE --}}
+
+    <script src="{{ asset('assets/plugins/datatables/js/jquery.datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/table-data.js') }}"></script>
+
     {{-- Boxicons --}}
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
@@ -459,13 +495,20 @@
 
 
 
-    <script>
-        new DataTable('#example');
-    </script>
+    {{-- <script>
+        new DataTable('#example'    );
+    </script> --}}
+    {{--
+    <script src="{{ asset('vendor/sweetalert2/sweetalert2.min.js') }}"></script> --}}
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 
     @if (session('success'))
+        {{-- <style>
+            .selection {
+                display: none
+            }
+        </style> --}}
         <script type="text/javascript">
             let timerInterval;
             Swal.fire({
@@ -479,6 +522,7 @@
                     timerInterval = setInterval(() => {}, 250)
                 },
                 willClose: () => {
+                    // window.location.reload();
 
                 }
             }).then((result) => {
@@ -492,6 +536,12 @@
 
 
     @if (session('failed'))
+        {{-- <style>
+            .selection {
+                display: none
+            }
+        </> --}}
+
         <script type="text/javascript">
             let timerInterval;
             Swal.fire({
@@ -505,7 +555,7 @@
                     timerInterval = setInterval(() => {}, 100)
                 },
                 willClose: () => {
-
+                    // window.location.reload();
                 }
             }).then((result) => {
                 if (result.dismiss === Swal.DismissReason.timer) {
@@ -535,7 +585,7 @@
     </script>
 
 </body>
-@include('sweetalert::alert')
+{{-- @include('sweetalert::alert') --}}
 
 
 <!-- Mirrored from polygons.space/meteor/Source/admin1/layout-blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 17 Oct 2023 01:12:45 GMT -->

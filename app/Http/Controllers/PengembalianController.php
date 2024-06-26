@@ -15,8 +15,27 @@ class PengembalianController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+
+    // public function create(Barang $barang)
+    // {
+    //     //autorization
+    //     if (auth()->user()->is_admin === 'user') {
+
+    //         $this->authorize('create', $barang);
+    //     }
+
+
+
+    public function index(Peminjaman $pengembalian)
     {
+
+        //autorization
+        // if (auth()->user()->is_admin === 'admin') {
+
+        //     $this->authorize('index', $pengembalian);
+        // }
+
         $pengembalian = Peminjaman::all();
         $barang = Barang::all();
         $user = User::all();
@@ -28,6 +47,7 @@ class PengembalianController extends Controller
                 ->leftJoin('users', 'peminjamans.id_user', '=', 'users.id')
                 ->leftJoin('barangs', 'peminjamans.id_barang', '=', 'barangs.id_barang')
                 ->leftJoin('users as user2', 'user2.id', '=', 'barangs.id_pic')
+                // ->whereIn('status', ['selesai', 'telat'])
                 ->orderBy('peminjamans.created_at', 'desc')
                 ->get();
             // $pendingRequestCount = Peminjaman::where('status', 'menunggu')->count();
@@ -39,7 +59,7 @@ class PengembalianController extends Controller
                 ->leftJoin('barangs', 'peminjamans.id_barang', '=', 'barangs.id_barang')
                 ->leftJoin('users as user2', 'user2.id', '=', 'barangs.id_pic')
                 ->where('user2.id', '=', auth()->user()->id)
-                ->where('status', '=', 'selesai')
+                // ->where('status', '=', 'selesai', 'telat', 'ditolak')
                 ->orderBy('peminjamans.created_at', 'desc')
                 ->get();
         } elseif (auth()->user()->is_admin === 'user') {
@@ -50,7 +70,7 @@ class PengembalianController extends Controller
                 ->leftJoin('barangs', 'peminjamans.id_barang', '=', 'barangs.id_barang')
                 ->leftJoin('users as user2', 'user2.id', '=', 'barangs.id_pic')
                 ->where('peminjamans.id_user', '=', auth()->id())
-                ->where('status', '=', 'selesai')
+                // ->where('status', '=', 'selesai', 'telat', 'ditolak')
                 ->orderBy('peminjamans.created_at', 'desc')
                 ->get();
         }

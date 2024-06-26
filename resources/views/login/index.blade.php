@@ -3,6 +3,23 @@
 <html lang="en">
 
 <head>
+
+    {{-- <style>
+        .login-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .login-container h2 {
+            margin: 0;
+        }
+
+        .login-container img {
+            : 10px;
+        }
+    </style> --}}
+
+
     <link rel="stylesheet" href="{{ asset('assets/css/index.css') }}">
     <title>Login</title>
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
@@ -23,7 +40,15 @@
             <div class="form-value">
                 <form action="{{ route('login.store') }}" method="post">
                     @csrf
-                    <h2>Login</h2>
+                    <div class="login-container" style="text-align: center;">
+                        <span> <img class="" src="{{ asset('assets/images/favicon.png') }}" alt="Nama Gambar"
+                                width="60px" height="60px"></span>
+                        <h2>Login </h2>
+
+
+                    </div>
+
+
                     <div class="inputbox">
                         <ion-icon name="mail-outline"></ion-icon>
                         <input type="email" required name="email"
@@ -38,13 +63,14 @@
                         <label for="">Password</label>
                     </div>
                     <div class="forget">
-                        <label for=""><input type="checkbox">Remember Me <a href="#">Forget
-                                Password</a></label>
+                        <label for=""><input type="checkbox" class="mb-5">Remember Me
+                            {{-- <a href="#">Forget
+                                Password</a> --}}</label>
 
                     </div>
-                    <button type="submit">Log in</button>
+                    <button type="submit" class="mt-5">Log in</button>
                     <div class="register">
-                        <p>Don't have a account <a href="#">Register</a></p>
+                        {{-- <p>Don't have a account <a href="#">Register</a></p> --}}
                     </div>
                 </form>
             </div>

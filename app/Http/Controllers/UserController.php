@@ -17,8 +17,15 @@ class UserController extends Controller
      *
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(User $user)
     {
+        //autorization
+        if (auth()->user()->is_admin === 'admin') {
+            $this->authorize('create', $user);
+        } else {
+            abort(403, 'Unauthorized');
+        }
+
         return view('layout.user.index', [
             'name' => $this->name,
             'user' => User::all()
@@ -28,8 +35,16 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(User $user)
     {
+        //autorization
+        if (auth()->user()->is_admin === 'admin') {
+            $this->authorize('create', $user);
+        } else {
+            abort(403, 'Unauthorized');
+        }
+
+
         $data =  [
             'role' => User::select('is_admin')->distinct()->get(),
         ];
@@ -101,7 +116,15 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
+    // public function update(User $user, Request $request, string $id)
     {
+        //autorization
+        // if (auth()->user()->is_admin === 'admin') {
+        //     $this->authorize('create', $user);
+        // } else {
+        //     abort(403, 'Unauthorized');
+        // }
+
         $validate = Validator::make(
             $request->all(),
             [

@@ -17,6 +17,56 @@ class PeminjamanController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    // public function laporan()
+    // {
+    //     $laporan = Peminjaman::all();
+
+    //     $laporan = DB::table('peminjamans')
+    //         ->select('peminjamans.*', 'barangs.*', 'users.name as nama_peminjam', 'barangs.id_pic as id_pic', 'user2.name as nama_pic')
+    //         ->leftJoin('users', 'peminjamans.id_user', '=', 'users.id')
+    //         ->leftJoin('barangs', 'peminjamans.id_barang', '=', 'barangs.id_barang')
+    //         ->leftJoin('users as user2', 'user2.id', '=', 'barangs.id_pic')
+    //         ->orderBy('peminjamans.created_at', 'desc')
+    //         ->get();
+
+    //     return view('layout.laporan.index', [
+    //         'laporan' => $laporan,
+    //     ]);
+    // }
+
+
+
+    public function cetak(Request $request)
+    {
+
+        // $cetak = Peminjaman::all();
+        // $barang = Barang::all();
+        // $user = User::all();
+        // dd($cetak);
+
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
+        $cetak = DB::table('peminjamans')
+            ->select('peminjamans.*', 'barangs.*', 'users.name as nama_peminjam', 'barangs.id_pic as id_pic', 'user2.name as nama_pic')
+            ->leftJoin('users', 'peminjamans.id_user', '=', 'users.id')
+            ->leftJoin('barangs', 'peminjamans.id_barang', '=', 'barangs.id_barang')
+            ->leftJoin('users as user2', 'user2.id', '=', 'barangs.id_pic')
+            ->where('peminjamans.created_at', '>=', $start_date)
+            ->where('peminjamans.created_at', '<=', $end_date)
+            ->orderBy('peminjamans.created_at', 'desc')
+            ->get();
+
+        return view('layout.pengembalian.cetak', [
+            'cetak' => $cetak,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+        ]);
+    }
+
+
+
     public function index()
     {
         $pinjam = Barang::all();
@@ -43,6 +93,31 @@ class PeminjamanController extends Controller
                 ->get();
         }
 
+
+
+        // ini dari blackbox
+        // if (auth()->user()->is_admin === 'admin') {
+        //     $peminjaman = DB::table('peminjamans')
+        //         ->select('peminjamans.id_barang', DB::raw('sum(peminjamans.qty_barang) as total_qty'), 'barangs.*', 'users.name as nama_peminjam', 'barangs.id_pic as id_pic', 'user2.name as nama_pic')
+        //         ->leftJoin('users', 'peminjamans.id_user', '=', 'users.id')
+        //         ->leftJoin('barangs', 'peminjamans.id_barang', '=', 'barangs.id_barang')
+        //         ->leftJoin('users as user2', 'user2.id', '=', 'barangs.id_pic')
+        //         ->groupBy('peminjamans.id_barang', 'barangs.*', 'users.name', 'barangs.id_pic', 'user2.name')
+        //         ->orderBy('peminjamans.created_at', 'desc')
+        //         ->get();
+        // } else {
+        //     $peminjaman = DB::table('peminjamans')
+        //         ->select('peminjamans.id_barang', DB::raw('sum(peminjamans.qty_barang) as total_qty'), 'barangs.*', 'users.name as nama_peminjam', 'barangs.id_pic as id_pic', 'user2.name as nama_pic')
+        //         ->leftJoin('users', 'peminjamans.id_user', '=', 'users.id')
+        //         ->leftJoin('barangs', 'peminjamans.id_barang', '=', 'barangs.id_barang')
+        //         ->leftJoin('users as user2', 'user2.id', '=', 'barangs.id_pic')
+        //         ->where('user2.id', '=', auth()->user()->id)
+        //         ->groupBy('peminjamans.id_barang', 'barangs.*', 'users.name', 'barangs.id_pic', 'user2.name')
+        //         ->orderBy('peminjamans.created_at', 'desc')
+        //         ->get();
+        // }
+
+
         // } else{
 
         // $peminjaman = Peminjaman::select('peminjamans.*', 'barangs.*', 'users.name as nama_peminjam', 'barangs.id_pic as id_pic', 'user2.name as nama_pic')
@@ -54,7 +129,6 @@ class PeminjamanController extends Controller
         // ->get();
 
         //}
-
 
         // ->where('users.name', $yuser)
         return view('layout.peminjam.index', [
@@ -92,8 +166,21 @@ class PeminjamanController extends Controller
     public function acc(Request $request, $id)
     {
         $peminjaman = Peminjaman::findOrFail($id);
+        $barang = Barang::findOrFail($peminjaman->id_barang);
+        // dd($peminjaman);
+        $sisa = $barang->sisa;
+        $jumlah = $peminjaman->qty_barang;
 
         if ($peminjaman->status === 'menunggu') {
+            if ($sisa <= 0) {
+                return redirect()->back()->with('failed', 'Stok Tidak Tersedia');
+            }
+
+            if ($jumlah > $sisa) {
+                return redirect()->back()->with('failed', 'Peminjaman Melebihi Stok');
+            }
+
+
             $peminjaman->status = 'diterima';
             $peminjaman->save();
 

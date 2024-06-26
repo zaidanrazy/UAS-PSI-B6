@@ -10,6 +10,12 @@
     <script src="{{ asset('assets/js/pages/form-select2.js') }}"></script>
 @endpush --}}
 
+<style>
+    .oiii {
+        margin-right: 5px;
+    }
+</style>
+
 @section('tes')
     <div class="page-inner">
         <div class="page-title">
@@ -30,10 +36,18 @@
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="/user">
                         @csrf
-                        <div class="form-group">
-                            <label for="name" class="col-sm-1 control-label">Nama</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+
+
+
+
+
+
+                        <div class="row row-sm mb-3 ms-5">
+                            <div class="col-lg-6 form-group">
+                                <label for="name" class="form-label"></label>
+                                <h4 class="no-m m-b-sm">Nama</h4>
+                                {{-- <div class="col-sm-5"> --}}
+                                <input type="text" class="form-control me-1 @error('name') is-invalid @enderror"
                                     id="name" name="name" required autofocus value="{{ old('name') }}">
                                 @error('name')
                                     <div class="invalid-feedback">
@@ -41,10 +55,11 @@
                                     </div>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="col-sm-1 control-label">Email</label>
-                            <div class="col-sm-5">
+                            <div class="col-lg-6 form-group ms-5">
+                                <label for="email" class="form-label">
+                                    <h4 class="no-m m-b-sm">Email</h4>
+                                </label>
+                                {{-- <div class="col-sm-5"> --}}
                                 <input type="text" class="form-control @error('email') is-invalid @enderror"
                                     id="email" name="email" required autofocus value="{{ old('email') }}">
                                 @error('email')
@@ -52,62 +67,36 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
+                                {{-- </div> --}}
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="nik" class="col-sm-1 control-label">Nik</label>
-                            <div class="col-sm-5">
-                                <input type="text" maxlength="8" class="form-control @error('nik') is-invalid @enderror"
-                                    id="nik" name="nik" required autofocus value="{{ old('nik') }}">
+
+
+                        <div class="row row-sm mb-3 ms-5">
+                            <div class="col-lg-6 form-group">
+                                <label for="nik" class="form-label ">
+                                    <h4 class="no-m m-b-sm">Nik</h4>
+                                </label>
+                                <input type="text" maxlength="8"
+                                    class="form-control me-1  @error('nik') is-invalid @enderror" id="nik"
+                                    name="nik" required autofocus value="{{ old('nik') }}">
                                 @error('nik')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="role" class="col-sm-1 control-label">Role</label>
-                            <div class="col-sm-5">
-                                <select class="form-select form-select-lg" id="role" name="role" required>
-                                    <option value=""disabled>Pilih role</option>
-                                    @foreach ($role as $a)
-                                        <option value="{{ $a->is_admin }}">
-                                            {{ $a->is_admin }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('role')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
+                            <div class="col-lg-6 form-group ms-5">
+                                <label class="form-label  ">
+                                    <h4 class="no-m m-b-sm">Password</h4>
+                                </label>
 
-
-                        {{-- <div class="form-group">
-                            <label class="col-sm-1 control-label">Password</label>
-                            <div class="col-sm-5">
-                                <div class="input-group m-b-sm">
-                                    <input type="text" class="form-control" aria-describedby="basic-addon2">
-                                    <span class="input-group-addon" id="basic-addon2"><ion-icon name="eye-off-outline"
-                                            class="seep" id="seep"></ion-icon></span></span>
-                                </div>
-                            </div>
-                        </div> --}}
-
-
-
-
-                        <div class="form-group">
-                            <label class="col-sm-1 control-label">Password</label>
-                            <div class="col-sm-5">
-                                <div class="input-group m-b-sm">
+                                <div class="input-group m-b-sm ">
                                     {{-- <ion-icon name="eye-off-outline" class="seep" id="seep"></ion-icon> --}}
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                        id="password" name="password" required autofocus value="{{ old('password') }}"
+                                    <input type="password"
+                                        class="form-control ms-1  @error('password') is-invalid @enderror" id="password"
+                                        name="password" required autofocus value="{{ old('password') }}"
                                         aria-describedby="basic-addon2">
                                     <span class="input-group-addon" id="basic-addon2"> <ion-icon name="eye-off-outline"
                                             class="seep" id="seep"></ion-icon></span>
@@ -120,19 +109,44 @@
                             </div>
                         </div>
 
-
-                        <div class="form-group row">
-                            <div class="col-sm-1"></div>
-                            <div class="col-sm-4">
-                                <a href="{{ route('user.index') }}" class="btn btn-info">Kembali</a>
-                                <button type="submit" class="btn btn-primary">Simpan <i
-                                        class="bx bxs-save ms-20"></button></i>
-                            </div>
+                        <div class="col-lg-12 ms-3 form-group">
+                            <label for="role" class="form-label">
+                                <h4 class="no-m m-b-sm">Role</h4>
+                            </label>
+                            <select class=" form-select form-select-lg" id="role" name="role" required>
+                                <option value=""disabled>Pilih role</option>
+                                @foreach ($role as $a)
+                                    <option value="{{ $a->is_admin }}">
+                                        {{ $a->is_admin }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('role')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
+
+
+
                 </div>
-                </form>
+
+                <br>
+
+
+
+                <div class="form-group row justify-content-center">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4">
+                        <a href="{{ route('user.index') }}" class="btn btn-info">Kembali</a>
+                        <button type="submit" class="btn btn-primary">Simpan <i class="bx bxs-save ms-20"></button></i>
+                    </div>
+                </div>
             </div>
+            </form>
         </div>
+    </div>
     </div>
     </div>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

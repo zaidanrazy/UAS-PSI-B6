@@ -25,7 +25,7 @@ return new class extends Migration
 
             $table->string('tersedia')->nullable();
             $table->string('terpinjam')->nullable();
-            $table->string('jenis_barang')->nullable();
+            // $table->string('jenis_barang')->nullable();
             $table->timestamps();
         });
     }

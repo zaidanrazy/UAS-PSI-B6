@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\JenisBarang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,8 +13,15 @@ class JenisBarangController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(User $user, JenisBarang $JenisBarang)
     {
+
+        //autorization
+        if (auth()->user()->is_admin === 'user') {
+
+            $this->authorize('index', $JenisBarang);
+        }
+
 
         $jenis = jenisBarang::all();
         return view('layout.jenis.index', [

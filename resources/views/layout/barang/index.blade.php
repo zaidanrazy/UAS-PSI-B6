@@ -142,25 +142,25 @@
 
                     <div class="panel-body mb-auto">
                         <div class="table-responsive">
-                            <table id="example" class="table table-bordered table-sm mb-2 ">
+                            <table id="example" class="display table" style="width: 100%; cellpacing: 0;">
                                 <thead>
                                     <tr>
                                         <th style="text-align: center; width: 10px;">No</th>
                                         <th style="text-align: center;">Barcode</th>
-                                        <th style="text-align: center;" width="10%">Jenis Barang</th>
+                                        <th style="text-align: center;" width="10%">Kategori</th>
                                         <th style="text-align: center; width: 300px;">Barang</th>
-                                        @if (auth()->user()->is_admin === 'admin')
-                                            {{-- <th style="text-align: center;" width="10%">Harga</th> --}}
+                                        {{-- @if (auth()->user()->is_admin === 'admin')
+
                                             <th style="text-align: center; width: 10%;">
                                                 <span style="display: flex; flex-direction: column; align-items: center;">
-                                                    <i class="{{--  icon-credit-card --}}"></i>
+                                                    <i class=""></i>
                                                     <span style="margin-top: 5px;">Harga</span>
                                                 </span>
                                             </th>
-                                        @endif
+                                        @endif --}}
                                         <th style="text-align: center;">Stok</th>
                                         <th style="text-align: center;">Sisa</th>
-                                        <th style="text-align: center;" width="20%">Pic</th>
+                                        {{-- <th style="text-align: center;" width="20%">Pic</th> --}}
                                         @if (auth()->user()->is_admin === 'admin')
                                             <th style="text-align: center;" width="14%">Action</th>
                                         @endif
@@ -171,18 +171,47 @@
                                     @foreach ($barang as $b)
                                         <tr>
                                             <th style="text-align:center;"scope="row">{{ $loop->iteration }}</th>
-                                            <td style="text-align:center;">{{ $b->barcode }}</td>
-                                            <td style="text-align:center;">{{ $b->jenis_barang }}</td>
-                                            <td style="text-align:center;">{{ $b->barang }}</td>
-                                            @if (auth()->user()->is_admin === 'admin')
-                                                <td style="text-align:center;">{{ $b->harga }}</td>
-                                            @endif
-                                            <td style="text-align:center;">{{ $b->jumlah == null ? 'empty' : $b->jumlah }}
+                                            <td style="text-align:center; font-size:14px;">{{ $b->barcode }}</td>
+                                            <td style="text-align:center; font-size:14px;">{{ $b->jenis_barang }}</td>
+                                            <td style="text-align:center; font-size:14px;">{{ $b->barang }}</td>
+                                            {{-- @if (auth()->user()->is_admin === 'admin')
+                                                <td style="text-align:center; font-size:14px;">{{ $b->harga }}</td>
+                                            @endif --}}
+                                            <td style="text-align:center; font-size:14px;">
+                                                {{ $b->jumlah == null ? 'empty' : $b->jumlah }}
                                             </td>
+
+                                            {{-- @php
+                                                $total_stock = (int) $b->jumlah;
+                                                $qty_peminjaman = (int) \App\Models\Peminjaman::where(
+                                                    'id_barang',
+                                                    $b->id_barang,
+                                                )
+                                                    ->where('status', 'diterima')
+                                                    ->sum('qty_barang');
+
+                                                // Filter hanya pengembalian dengan status 'selesai'
+                                                $qty_pengembalian = (int) \App\Models\Peminjaman::where(
+                                                    'id_barang',
+                                                    $b->id_barang,
+                                                )
+                                                    ->where('status', 'selesai')
+                                                    ->sum('qty_barang');
+
+                                                $sisa = $total_stock - $qty_peminjaman + $qty_pengembalian;
+
+                                                // Simpan perubahan pada sisa stok barang
+                                                $barang = \App\Models\Barang::findOrFail($b->id_barang);
+                                                $barang->sisa = $sisa;
+                                                $barang->save();
+                                            @endphp --}}
 
                                             @php
                                                 $total_stock = (int) $b->jumlah;
-                                                $qty_peminjaman = (int) \App\Models\Peminjaman::where('id_barang', $b->id_barang)
+                                                $qty_peminjaman = (int) \App\Models\Peminjaman::where(
+                                                    'id_barang',
+                                                    $b->id_barang,
+                                                )
                                                     ->where('status', 'diterima')
                                                     ->sum('qty_barang');
                                                 $sisa = $total_stock - $qty_peminjaman;
@@ -193,7 +222,7 @@
                                                 $barang->save();
                                             @endphp
 
-                                            <td style="text-align:center;">{{ $sisa }}</td>
+                                            <td style="text-align:center; font-size:14px;">{{ $sisa }}</td>
 
                                             {{--
 
@@ -207,7 +236,7 @@
                                     </option>
                                 @endforeach --}}
 
-                                            <td style="text-align:center;">{{ $b->name }}</td>
+                                            {{-- <td style="text-align:center; font-size:14px;">{{ $b->name }}</td> --}}
                                             @if (auth()->user()->is_admin === 'admin')
                                                 <td style="text-align:center;">
                                                     <a class="btn btn-success btn-sm "

@@ -24,7 +24,8 @@
 
                 <div class="panel-body mb-auto">
                     <div class="table-responsive">
-                        <table id="example" class="table table-bordered table-sm mb-3 ">
+                        {{-- <table id="example" class="table table-bordered table-sm mb-3 "> --}}
+                        <table id="example" class="display table" style="width: 100%; cellpacing: 0;">
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">No</th>
@@ -37,11 +38,11 @@
                             <tbody>
                                 @foreach ($user as $u)
                                     <tr>
-                                        <td style="text-align: center;">{{ $loop->iteration }}</td>
-                                        <td style="text-align: center;">{{ $u->name }}</td>
-                                        <td style="text-align: center;">{{ $u->email }}</td>
-                                        <td style="text-align: center;">{{ $u->nik_pic }}</td>
-                                        <td style="text-align: center;">
+                                        <td style="text-align: center; font-size: 14px;">{{ $loop->iteration }}</td>
+                                        <td style="text-align: center; font-size: 14px;">{{ $u->name }}</td>
+                                        <td style="text-align: center; font-size: 14px;">{{ $u->email }}</td>
+                                        <td style="text-align: center; font-size: 14px;">{{ $u->nik_pic }}</td>
+                                        <td style="text-align: center; font-size: 14px;">
                                             <a class="btn btn-success btn-sm " href="{{ route('user.edit', $u->id) }}">
                                                 <i class="fas fa-edit"></i>
                                             </a>

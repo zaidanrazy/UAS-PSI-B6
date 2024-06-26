@@ -13,14 +13,15 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        'App\Models\Barang' => 'App\Policies\BarangPolicy',
+        'App\Models\User' => 'App\Policies\UserPolicy',
+        'App\Models\JenisBarang' => 'App\Policies\JenisPolicy',
+        'App\Models\Peminjaman' => 'App\Policies\PengembalianPolicy',
+        'App\Models\JenisBarang' => 'App\Policies\jeniss',
     ];
+
 
     /**
      * Register any authentication / authorization services.
      */
-    public function boot(): void
-    {
-        //
-    }
 }

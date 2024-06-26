@@ -11,7 +11,10 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PinjamController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\JenisBarangController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\LaporanControlller;
+use App\Models\Peminjaman;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,19 +49,21 @@ Route::middleware(['auth'])->group(function () {
     })->name('home');
 
     Route::resource('group', GroupController::class);
-    Route::resource('databarang', BarangController::class);
-    Route::resource('user', UserController::class);
-    Route::resource('jenisBarang', JenisBarangController::class);
-    Route::resource('peminjam', PeminjamanController::class);
-    Route::put('peminjaman/{peminjaman}/accepted', [PeminjamanController::class, 'acc'])->name('peminjaman.acc');
-    Route::put('peminjaman/{peminjaman}/declined', [PeminjamanController::class, 'refuse'])->name('peminjaman.declined');
+    Route::resource('databarang', BarangController::class)->middleware('auth');
+    Route::resource('user', UserController::class)->middleware('auth')->middleware('admin');
+    Route::resource('jenisBarang', JenisBarangController::class)->middleware('auth');
+    Route::resource('peminjam', PeminjamanController::class)->middleware('auth');
+    Route::put('peminjaman/{peminjaman}/accepted', [PeminjamanController::class, 'acc'])->name('peminjaman.acc')->middleware('auth');
+    Route::put('peminjaman/{peminjaman}/declined', [PeminjamanController::class, 'refuse'])->name('peminjaman.declined')->middleware('auth');
     // Route::put('peminjaman/{peminjaman}/end', [PeminjamanController::class, 'end'])->name('peminjaman.selesai');
 
-    Route::put('pinjam/{peminjaman}/kembalikan', [PinjamController::class, 'kembalikan'])->name('pinjam.kembalikan');
+    Route::put('pinjam/{peminjaman}/kembalikan', [PinjamController::class, 'kembalikan'])->name('pinjam.kembalikan')->middleware('auth');
+    // Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
+    Route::get('cetak', [PeminjamanController::class, 'cetak'])->name('UIO');
 
-
-    Route::resource('pinjam', PinjamController::class);
-    Route::resource('pengembalian', PengembalianController::class);
+    Route::resource('laporan', LaporanController::class)->middleware('auth');
+    Route::resource('pinjam', PinjamController::class)->middleware('auth');
+    Route::resource('pengembalian', PengembalianController::class)->middleware('auth');
 
     Route::resource('admin', AdminController::class)->middleware('admin');
 
@@ -85,7 +90,7 @@ Route::middleware(['auth'])->group(function () {
     //     ]);
     // })->name('user.index');
 
-    Route::post('/logout', [LoginController::class, 'logout']);
+    Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 });
 
 // Route::get('databarang/{databarang}/edit', [BarangController::class, 'edit'])->name('databarang.edit');

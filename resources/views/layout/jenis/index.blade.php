@@ -20,7 +20,7 @@
 @section('tes')
     <div class="page-inner">
         <div class="page-title">
-            <h3 class="breadcrumb-header">Jenis Barang</h3>
+            <h3 class="breadcrumb-header">Kategori Barang</h3>
             <div class="page-breadcrumb">
                 <ol class="breadcrumb breadcrumb-with-header"></ol>
             </div>
@@ -166,7 +166,7 @@
                 <thead>
                     <tr>
                         <th style="width: 5%">No</th>
-                        <th style="text-align: center;">Jenis Barang</th>
+                        <th style="text-align: center;">Kategori Barang</th>
                         <th style="width: 20%; text-align: center;">Action</th>
                     </tr>
                 </thead>
@@ -174,10 +174,10 @@
                     @foreach ($jenis as $j)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $j->jenis_barang }}</td>
-                            <td style="text-align: center;"><a class="btn btn-warning btn-sm" href="#"
+                            <td style="">{{ $j->jenis_barang }}</td>
+                            <td style="text-align: center;"><button class="btn btn-warning btn-sm" type="button"
                                     onclick="deleteData('{{ route('jenisBarang.destroy', $j->id_jb) }}'); return false;"><i
-                                        class='bx bx-trash-alt bx-sm fs-3 text-white'></i></a></td>
+                                        class='bx bx-trash-alt bx-sm fs-3 text-white'></i></button></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -187,8 +187,28 @@
         </div>
     </div>
     </div>
-    <form method="POST" id="deleteForm">@csrf @method('DELETE') </form>
-@endsection {{-- @extends ('layout.main')
+    <form method="POST" id="deleteForm">
+        @csrf @method('DELETE') </form>
+@endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- @extends ('layout.main')
 @section('tes')
     <div class="page-inner">
         <div class="page-title">

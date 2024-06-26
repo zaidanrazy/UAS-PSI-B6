@@ -33,9 +33,14 @@
                         action="{{ route('databarang.update', $barang->id_barang) }}">
                         @csrf
                         @method('PUT')
-                        <div class="form-group">
-                            <label for="barcode" class="col-sm-1 control-label">Barcode</label>
-                            <div class="col-sm-7">
+
+                        <div class="row row-sm mb-3 ms-5">
+                            <div class="col-lg-6 form-group">
+                                <label for="barcode" class="form-label">
+
+                                    <h4 class="no-m m-b-sm">Barcode</h4>
+                                </label>
+
                                 <input type="text" class="form-control @error('barcode') is-invalid @enderror"
                                     id="barcode" maxlength="8" name="barcode" required autofocus
                                     value="{{ old('barcode', $barang->barcode) }}">
@@ -44,12 +49,22 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="barang" class="col-sm-1 control-label">Barang</label>
-                            <div class="col-sm-7">
+                            </div>
+
+
+
+
+
+
+
+
+
+                            <div class="col-lg-6 form-group ms-5">
+                                <label for="barang" class="form-label">
+                                    <h4 class="no-m m-b-sm">Barang</h4>
+                                </label>
+
                                 <input type="text" class="form-control  @error('barang') is-invalid @enderror"
                                     id="barang" name="barang" required value="{{ old('barang', $barang->barang) }}">
                                 @error('barang')
@@ -58,18 +73,23 @@
                                     </div>
                                 @enderror
                                 <p class="help-block"></p>
+
                             </div>
                         </div>
 
 
-                        <div class="form-group">
-                            <label for="jenis_barang" class="col-sm-1 control-label">Jenis</label>
-                            <div class="col-sm-7">
+                        <div class="row row-sm mb-3 ms-5">
+                            <div class="col-lg-6 form-group">
+                                <label for="jenis_barang" class="form-label">
+                                    <h4 class="no-m m-b-sm">Kategori</h4>
+                                </label>
+
                                 <select class="form-select form-select-lg" aria-label="Default select example"
                                     id="jenis_barang" name="jenis_barang" required>
-                                    <option value=""> Pilih Jenis Barang </option>
+                                    {{-- <option value=""> Pilih Jenis Barang </option> --}}
                                     @foreach ($jenis as $j)
-                                        <option value="{{ $j->id_jb }}">
+                                        <option value="{{ $j->id_jb }}"
+                                            {{ old('jenis_barang', $barang->id_jb) == $j->id_jb ? 'selected' : '' }}>
                                             {{ $j->jenis_barang }}</option>
                                     @endforeach
 
@@ -81,13 +101,15 @@
                                     </div>
                                 @enderror
                                 <p class="help-block"></p>
+
                             </div>
-                        </div>
 
 
-                        <div class="form-group">
-                            <label for="jumlah" class="col-sm-1 control-label">Jumlah</label>
-                            <div class="col-sm-7">
+                            <div class="col-lg-6 form-group ms-5">
+                                <label for="jumlah" class="form-label">
+                                    <h4 class="no-m m-b-sm">Jumlah</h4>
+                                </label>
+
                                 <input type="number" class="form-control @error('jumlah') is-invalid @enderror"
                                     id="jumlah" name="jumlah" required value="{{ old('jumlah', $barang->jumlah) }}">
                                 @error('jumlah')
@@ -96,13 +118,17 @@
                                     </div>
                                 @enderror
                                 <p class="help-block"></p>
+
                             </div>
                         </div>
 
 
-                        <div class="form-group">
-                            <label for="harga" class="col-sm-1 control-label">Harga</label>
-                            <div class="col-sm-7">
+                        {{-- <div class="row row-sm mb-3 ms-5">
+                            <div class="col-lg-6 form-group">
+                                <label for="harga" class="form-label">
+                                    <h4 class="no-m m-b-sm">Harga</h4>
+                                </label>
+
                                 <input type="text" class="form-control @error('harga') is-invalid @enderror"
                                     id="harga" name="harga" required value="{{ $barang->harga }}">
                                 @error('harga')
@@ -111,8 +137,8 @@
                                     </div>
                                 @enderror
                                 <p class="help-block"></p>
-                            </div>
-                        </div>
+
+                            </div> --}}
 
                         {{-- <div class="form-group">
                             <label for="harga" class="col-sm-1 control-label">Harga</label>
@@ -122,9 +148,11 @@
                             </div>
                         </div> --}}
 
-                        <div class="form-group">
-                            <label for="pic" class="col-sm-1 control-label">PIC</label>
-                            <div class="col-sm-7">
+                        {{-- <div class="col-lg-6 form-group ms-5 ">
+                                <label for="pic" class="form-label">
+                                    <h4 class="no-m m-b-sm">PIC</h4>
+                                </label>
+
                                 <select class="form-select form-select-lg" id="pic" name="pic" required>
                                     <option value=""> Pilih PIC Barang </option>
                                     @foreach ($user as $u)
@@ -142,20 +170,23 @@
                                     </div>
                                 @enderror
                                 <p class="help-block"></p>
-                            </div>
-                        </div>
-                        <div class="form-group d-flex justify-content-center ">
 
-                            <a href="{{ route('databarang.index') }}" class="btn btn-info">Kembali</a> &nbsp; &nbsp;
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div> --}}
+                </div>
 
-                        </div>
+                <br>
+                <div class="form-group justify-content-center ">
+
+                    <a href="{{ route('databarang.index') }}" class="btn btn-info">Kembali</a> &nbsp; &nbsp;
+                    <button type="submit" class="btn btn-primary">Simpan</button>
 
                 </div>
-                </form>
-
 
             </div>
+            </form>
+
+
         </div>
+    </div>
     </div>
 @endsection
