@@ -33,7 +33,7 @@
     <meta name="description" content="Admin Dashboard Template" />
     <meta name="keywords" content="admin,dashboard" />
     <meta name="author" content="stacks" />
-    <link href="{{ asset('assets/images/favicon.png') }}" rel="icon">
+    <link href="{{ asset('assets/images/logo-d.png') }}" rel="icon">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
     {{-- <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> --}}
@@ -198,9 +198,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css
                 </div>
                 <div class="logo-box ms-5">
                     <a href="index.html" class="logo-text"
-                        style= "font-family:candara; font-weight: bold; height:15px; font-size:18px; bold"><span>PT BSS
+                        style= "font-family:candara; font-weight: bold; height:15px; font-size:18px; bold"><span>SIPPB-DISHUB
                             {{-- font-family: "poppins", sans-serif; --}}
-                            <img src="{{ asset('assets/images/favicon.png') }}" class="" height="26">
+                            <img src="{{ asset('assets/images/pak-dishub.png') }}" class="" height="20">
                         </span></a>
                 </div><!-- Logo Box -->
                 <div class="search-button">
@@ -402,7 +402,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css
             }
         </style>
         <div class="page-footer">
-            <p class="no-s">Made with <i class="fa fa-heart"></i>Jawir 2023</p>
+            <p class="no-s">Made with <i class="fa fa-heart"></i>SIPPB-DISHUB</p>
         </div>
 
         {{-- <p class="no-s">Made with <i class="fa fa-heart"></i> by stacks</p> --}}

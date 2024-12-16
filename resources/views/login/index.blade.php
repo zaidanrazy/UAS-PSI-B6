@@ -22,7 +22,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/index.css') }}">
     <title>Login</title>
-    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    {{-- <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> --}}
 </head>
 
 <body>
@@ -41,7 +41,7 @@
                 <form action="{{ route('login.store') }}" method="post">
                     @csrf
                     <div class="login-container" style="text-align: center;">
-                        <span> <img class="" src="{{ asset('assets/images/favicon.png') }}" alt="Nama Gambar"
+                        <span> <img class="" src="{{ asset('assets/images/pak-dishub.png') }}" alt="Nama Gambar"
                                 width="60px" height="60px"></span>
                         <h2>Login </h2>
 
